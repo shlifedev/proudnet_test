@@ -6,6 +6,7 @@ global Game.Network.C2S 2000
     SendTest2([in] UnityEngine.Vector3 value);
 
 	ReqJoinGame();
+	ReqLeaveGame();
 	ReqMove([in] int EntityIndex);
 
 	

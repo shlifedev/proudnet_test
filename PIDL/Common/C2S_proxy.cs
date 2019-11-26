@@ -91,6 +91,30 @@ __msg.Write(__msgid);
 	return RmiSend(remotes,rmiContext,__msg,
 		RmiName_ReqJoinGame, Common.ReqJoinGame);
 }
+public bool ReqLeaveGame(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext)
+{
+	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
+		__msg.SimplePacketMode = core.IsSimplePacketMode();
+		Nettention.Proud.RmiID __msgid= Common.ReqLeaveGame;
+		__msg.Write(__msgid);
+		
+	Nettention.Proud.HostID[] __list = new Nettention.Proud.HostID[1];
+	__list[0] = remote;
+		
+	return RmiSend(__list,rmiContext,__msg,
+		RmiName_ReqLeaveGame, Common.ReqLeaveGame);
+}
+
+public bool ReqLeaveGame(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext)
+{
+	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
+__msg.SimplePacketMode = core.IsSimplePacketMode();
+Nettention.Proud.RmiID __msgid= Common.ReqLeaveGame;
+__msg.Write(__msgid);
+		
+	return RmiSend(remotes,rmiContext,__msg,
+		RmiName_ReqLeaveGame, Common.ReqLeaveGame);
+}
 public bool ReqMove(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int EntityIndex)
 {
 	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
@@ -123,6 +147,7 @@ MyMarshaler.Write(__msg, EntityIndex);
 public const string RmiName_SendTest="SendTest";
 public const string RmiName_SendTest2="SendTest2";
 public const string RmiName_ReqJoinGame="ReqJoinGame";
+public const string RmiName_ReqLeaveGame="ReqLeaveGame";
 public const string RmiName_ReqMove="ReqMove";
        
 public const string RmiName_First = RmiName_SendTest;
@@ -132,6 +157,7 @@ public const string RmiName_First = RmiName_SendTest;
 public const string RmiName_SendTest="";
 public const string RmiName_SendTest2="";
 public const string RmiName_ReqJoinGame="";
+public const string RmiName_ReqLeaveGame="";
 public const string RmiName_ReqMove="";
        
 public const string RmiName_First = "";
