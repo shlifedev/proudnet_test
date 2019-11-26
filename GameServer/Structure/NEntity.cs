@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameServer.Struct
+namespace Game.Network
 {
     public class NEntity
     {
@@ -14,7 +14,7 @@ namespace GameServer.Struct
 
     public class NItemEntity : NEntity
     {
-        public int itemIndex;
+
     }
 
     public class NEntityManager

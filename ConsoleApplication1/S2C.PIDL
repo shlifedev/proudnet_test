@@ -4,10 +4,6 @@ global Game.Network.S2C 3000
 { 
 	SendTest([in] string value);  
 	NotifyJoinPlayer([in] int JoinedEntityIndex, [in] HostID PlayerHostID); 
-	NotifyLeavePlayeR([in] int playerHostId);
-	NotifyServerMessage([in] string msg);
 	GivePlayerItem([in] HostID PlayerHostID);
-	NotifyItemCreate([in] int id, [in] int itemIndex, [in] UnityEngine.Vector3 createdPosition);
-	NotifyEntityMove([in] int id, [in] Vector3 position);
 }       
  

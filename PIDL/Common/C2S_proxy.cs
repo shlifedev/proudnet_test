@@ -91,14 +91,13 @@ __msg.Write(__msgid);
 	return RmiSend(remotes,rmiContext,__msg,
 		RmiName_ReqJoinGame, Common.ReqJoinGame);
 }
-public bool ReqMove(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, Vector3 position)
+public bool ReqMove(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int EntityIndex)
 {
 	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
 		__msg.SimplePacketMode = core.IsSimplePacketMode();
 		Nettention.Proud.RmiID __msgid= Common.ReqMove;
 		__msg.Write(__msgid);
-		MyMarshaler.Write(__msg, entityId);
-		MyMarshaler.Write(__msg, position);
+		MyMarshaler.Write(__msg, EntityIndex);
 		
 	Nettention.Proud.HostID[] __list = new Nettention.Proud.HostID[1];
 	__list[0] = remote;
@@ -107,14 +106,13 @@ public bool ReqMove(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext r
 		RmiName_ReqMove, Common.ReqMove);
 }
 
-public bool ReqMove(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext, int entityId, Vector3 position)
+public bool ReqMove(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext, int EntityIndex)
 {
 	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
 __msg.SimplePacketMode = core.IsSimplePacketMode();
 Nettention.Proud.RmiID __msgid= Common.ReqMove;
 __msg.Write(__msgid);
-MyMarshaler.Write(__msg, entityId);
-MyMarshaler.Write(__msg, position);
+MyMarshaler.Write(__msg, EntityIndex);
 		
 	return RmiSend(remotes,rmiContext,__msg,
 		RmiName_ReqMove, Common.ReqMove);

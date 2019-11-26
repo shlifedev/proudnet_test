@@ -33,8 +33,8 @@ public BeforeRmiInvocationDelegate BeforeRmiInvocation = delegate(Nettention.Pro
 		{ 
 			return false;
 		};
-		public delegate bool ReqMoveDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, Vector3 position);  
-		public ReqMoveDelegate ReqMove = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, Vector3 position)
+		public delegate bool ReqMoveDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int EntityIndex);  
+		public ReqMoveDelegate ReqMove = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int EntityIndex)
 		{ 
 			return false;
 		};
@@ -233,14 +233,12 @@ core.PostCheckReadMessage(__msg, RmiName_SendTest2);
         ctx.encryptMode = pa.EncryptMode;
         ctx.compressMode = pa.CompressMode;
 
-        int entityId; MyMarshaler.Read(__msg,out entityId);	
-Vector3 position; MyMarshaler.Read(__msg,out position);	
+        int EntityIndex; MyMarshaler.Read(__msg,out EntityIndex);	
 core.PostCheckReadMessage(__msg, RmiName_ReqMove);
         if(enableNotifyCallFromStub==true)
         {
         string parameterString = "";
-        parameterString+=entityId.ToString()+",";
-parameterString+=position.ToString()+",";
+        parameterString+=EntityIndex.ToString()+",";
         NotifyCallFromStub(Common.ReqMove, RmiName_ReqMove,parameterString);
         }
 
@@ -257,7 +255,7 @@ parameterString+=position.ToString()+",";
         long t0 = Nettention.Proud.PreciseCurrentTime.GetTimeMs();
 
         // Call this method.
-        bool __ret =ReqMove (remote,ctx , entityId, position );
+        bool __ret =ReqMove (remote,ctx , EntityIndex );
 
         if(__ret==false)
         {
