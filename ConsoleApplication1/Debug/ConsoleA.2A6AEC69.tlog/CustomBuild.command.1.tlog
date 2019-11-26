@@ -1,0 +1,10 @@
+^C:\USERS\SHLIF\SOURCE\REPOS\GAMESERVER\CONSOLEAPPLICATION1\C2C.PIDL
+Compiling C2C.pidl ...
+ 
+ "C:\Program Files (x86)\Nettention\ProudNet\util\PIDL.exe " "C:\Users\shlif\source\repos\GameServer\ConsoleApplication1\C2C.PIDL" -cs  -outdir ..\PIDL\Common
+^C:\USERS\SHLIF\SOURCE\REPOS\GAMESERVER\CONSOLEAPPLICATION1\C2S.PIDL
+Compiling C2S.pidl ...
+ "C:\Program Files (x86)\Nettention\ProudNet\util\PIDL.exe " "C:\Users\shlif\source\repos\GameServer\ConsoleApplication1\C2S.PIDL" -cs  -outdir ..\PIDL\Common
+^C:\USERS\SHLIF\SOURCE\REPOS\GAMESERVER\CONSOLEAPPLICATION1\S2C.PIDL
+Compiling S2C.pidl ...
+ "C:\Program Files (x86)\Nettention\ProudNet\util\PIDL.exe " "C:\Users\shlif\source\repos\GameServer\ConsoleApplication1\S2C.PIDL" -cs  -outdir ..\PIDL\Common

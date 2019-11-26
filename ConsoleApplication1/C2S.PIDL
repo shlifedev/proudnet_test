@@ -1,0 +1,12 @@
+using(cs) Nettention.Proud;
+[marshaler(cs) = MyMarshaler, access=public] 
+global Game.Network.C2S 2000 
+{ 
+	SendTest([in] string value);
+    SendTest2([in] UnityEngine.Vector3 value);
+
+	ReqJoinGame();
+	ReqMove([in] int entityId, [in] Vector3 position); 
+	
+}       
+ 

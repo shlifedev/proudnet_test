@@ -1,0 +1,9 @@
+using(cs) Nettention.Proud;
+[marshaler(cs) = MyMarshaler, access=public] 
+global Game.Network.C2C 1000 
+{
+	Movement([in] UnityEngine.Vector3 position);   
+}       
+ 
+
+
