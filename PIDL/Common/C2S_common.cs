@@ -18,14 +18,12 @@ namespace Game.Network.C2S
 			public const Nettention.Proud.RmiID SendTest = (Nettention.Proud.RmiID)2000+1;
 			public const Nettention.Proud.RmiID SendTest2 = (Nettention.Proud.RmiID)2000+2;
 			public const Nettention.Proud.RmiID ReqJoinGame = (Nettention.Proud.RmiID)2000+3;
-			public const Nettention.Proud.RmiID ReqLeaveGame = (Nettention.Proud.RmiID)2000+4;
-			public const Nettention.Proud.RmiID ReqMove = (Nettention.Proud.RmiID)2000+5;
+			public const Nettention.Proud.RmiID ReqMove = (Nettention.Proud.RmiID)2000+4;
 		// List that has RMI ID.
 		public static Nettention.Proud.RmiID[] RmiIDList = new Nettention.Proud.RmiID[] {
 			SendTest,
 			SendTest2,
 			ReqJoinGame,
-			ReqLeaveGame,
 			ReqMove,
 		};
 	}

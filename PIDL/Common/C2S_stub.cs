@@ -33,13 +33,8 @@ public BeforeRmiInvocationDelegate BeforeRmiInvocation = delegate(Nettention.Pro
 		{ 
 			return false;
 		};
-		public delegate bool ReqLeaveGameDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext);  
-		public ReqLeaveGameDelegate ReqLeaveGame = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext)
-		{ 
-			return false;
-		};
-		public delegate bool ReqMoveDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int EntityIndex);  
-		public ReqMoveDelegate ReqMove = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int EntityIndex)
+		public delegate bool ReqMoveDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, UnityEngine.Vector3 position);  
+		public ReqMoveDelegate ReqMove = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, UnityEngine.Vector3 position)
 		{ 
 			return false;
 		};
@@ -67,9 +62,6 @@ public BeforeRmiInvocationDelegate BeforeRmiInvocation = delegate(Nettention.Pro
             break;
         case Common.ReqJoinGame:
             ProcessReceivedMessage_ReqJoinGame(__msg, pa, hostTag, remote);
-            break;
-        case Common.ReqLeaveGame:
-            ProcessReceivedMessage_ReqLeaveGame(__msg, pa, hostTag, remote);
             break;
         case Common.ReqMove:
             ProcessReceivedMessage_ReqMove(__msg, pa, hostTag, remote);
@@ -232,54 +224,6 @@ core.PostCheckReadMessage(__msg, RmiName_SendTest2);
         AfterRmiInvocation(summary);
         }
     }
-    void ProcessReceivedMessage_ReqLeaveGame(Nettention.Proud.Message __msg, Nettention.Proud.ReceivedMessage pa, Object hostTag, Nettention.Proud.HostID remote)
-    {
-        Nettention.Proud.RmiContext ctx = new Nettention.Proud.RmiContext();
-        ctx.sentFrom=pa.RemoteHostID;
-        ctx.relayed=pa.IsRelayed;
-        ctx.hostTag=hostTag;
-        ctx.encryptMode = pa.EncryptMode;
-        ctx.compressMode = pa.CompressMode;
-
-        core.PostCheckReadMessage(__msg, RmiName_ReqLeaveGame);
-        if(enableNotifyCallFromStub==true)
-        {
-        string parameterString = "";
-                NotifyCallFromStub(Common.ReqLeaveGame, RmiName_ReqLeaveGame,parameterString);
-        }
-
-        if(enableStubProfiling)
-        {
-        Nettention.Proud.BeforeRmiSummary summary = new Nettention.Proud.BeforeRmiSummary();
-        summary.rmiID = Common.ReqLeaveGame;
-        summary.rmiName = RmiName_ReqLeaveGame;
-        summary.hostID = remote;
-        summary.hostTag = hostTag;
-        BeforeRmiInvocation(summary);
-        }
-
-        long t0 = Nettention.Proud.PreciseCurrentTime.GetTimeMs();
-
-        // Call this method.
-        bool __ret =ReqLeaveGame (remote,ctx  );
-
-        if(__ret==false)
-        {
-        // Error: RMI function that a user did not create has been called. 
-        core.ShowNotImplementedRmiWarning(RmiName_ReqLeaveGame);
-        }
-
-        if(enableStubProfiling)
-        {
-        Nettention.Proud.AfterRmiSummary summary = new Nettention.Proud.AfterRmiSummary();
-        summary.rmiID = Common.ReqLeaveGame;
-        summary.rmiName = RmiName_ReqLeaveGame;
-        summary.hostID = remote;
-        summary.hostTag = hostTag;
-        summary.elapsedTime = Nettention.Proud.PreciseCurrentTime.GetTimeMs()-t0;
-        AfterRmiInvocation(summary);
-        }
-    }
     void ProcessReceivedMessage_ReqMove(Nettention.Proud.Message __msg, Nettention.Proud.ReceivedMessage pa, Object hostTag, Nettention.Proud.HostID remote)
     {
         Nettention.Proud.RmiContext ctx = new Nettention.Proud.RmiContext();
@@ -289,12 +233,14 @@ core.PostCheckReadMessage(__msg, RmiName_SendTest2);
         ctx.encryptMode = pa.EncryptMode;
         ctx.compressMode = pa.CompressMode;
 
-        int EntityIndex; MyMarshaler.Read(__msg,out EntityIndex);	
+        int entityId; MyMarshaler.Read(__msg,out entityId);	
+UnityEngine.Vector3 position; MyMarshaler.Read(__msg,out position);	
 core.PostCheckReadMessage(__msg, RmiName_ReqMove);
         if(enableNotifyCallFromStub==true)
         {
         string parameterString = "";
-        parameterString+=EntityIndex.ToString()+",";
+        parameterString+=entityId.ToString()+",";
+parameterString+=position.ToString()+",";
         NotifyCallFromStub(Common.ReqMove, RmiName_ReqMove,parameterString);
         }
 
@@ -311,7 +257,7 @@ core.PostCheckReadMessage(__msg, RmiName_ReqMove);
         long t0 = Nettention.Proud.PreciseCurrentTime.GetTimeMs();
 
         // Call this method.
-        bool __ret =ReqMove (remote,ctx , EntityIndex );
+        bool __ret =ReqMove (remote,ctx , entityId, position );
 
         if(__ret==false)
         {
@@ -336,7 +282,6 @@ core.PostCheckReadMessage(__msg, RmiName_ReqMove);
 public const string RmiName_SendTest="SendTest";
 public const string RmiName_SendTest2="SendTest2";
 public const string RmiName_ReqJoinGame="ReqJoinGame";
-public const string RmiName_ReqLeaveGame="ReqLeaveGame";
 public const string RmiName_ReqMove="ReqMove";
        
 public const string RmiName_First = RmiName_SendTest;
@@ -346,7 +291,6 @@ public const string RmiName_First = RmiName_SendTest;
 public const string RmiName_SendTest="";
 public const string RmiName_SendTest2="";
 public const string RmiName_ReqJoinGame="";
-public const string RmiName_ReqLeaveGame="";
 public const string RmiName_ReqMove="";
        
 public const string RmiName_First = "";

@@ -1,9 +1,17 @@
 using(cs) Nettention.Proud;
+using(cs) System.Collections.Generic;
 [marshaler(cs) = MyMarshaler, access=public] 
 global Game.Network.S2C 3000 
 { 
-	SendTest([in] string value);  
-	NotifyJoinPlayer([in] int JoinedEntityIndex, [in] HostID PlayerHostID); 
+	SendTest([in] string value);
+	
+
+	NotifyJoinPlayer([in] GameServer.Struct.NEntityList joinedPlayers); 
+	NotifyLeavePlayeR([in] int playerHostId);
+	NotifyServerMessage([in] string msg); 
+	NotifyItemCreate([in] int id, [in] int itemIndex, [in] UnityEngine.Vector3 createdPosition);
+	NotifyEntityMove([in] int id, [in] UnityEngine.Vector3 position);
+	NotifyPlayerCreate([in] int ownerHid, [in] int entityId, [in] UnityEngine.Vector3 createdPosition);  
 	GivePlayerItem([in] HostID PlayerHostID);
 }       
  
