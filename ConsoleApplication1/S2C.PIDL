@@ -11,7 +11,16 @@ global Game.Network.S2C 3000
 	NotifyServerMessage([in] string msg); 
 	NotifyItemCreate([in] int id, [in] int itemIndex, [in] UnityEngine.Vector3 createdPosition);
 	NotifyEntityMove([in] int id, [in] UnityEngine.Vector3 position);
+	
+	/* 플레이어 생성 알림 */
 	NotifyPlayerCreate([in] int ownerHid, [in] int entityId, [in] UnityEngine.Vector3 createdPosition);  
+	
+	/* 엔티티가 파괴되었음을 알림*/
+	NotifyDestroyEntity([in] int entityId); 
+
+	/* 서버로부터 플레이어 아이템 받았을때 */
+	NotifyInventoryItemAdd([in] GameServer.Struct.Item item);
+
 	GivePlayerItem([in] HostID PlayerHostID);
 }       
  

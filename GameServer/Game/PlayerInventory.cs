@@ -6,24 +6,30 @@ using System.Threading.Tasks;
 using HID = Nettention.Proud.HostID;
 using RMI = Nettention.Proud.RmiContext;
 using Vector3 = UnityEngine.Vector3;
+using Struct = GameServer.Struct; 
 
 namespace GameServer
 {
     public class PlayerInventory
     {
+        public Player player;
+        public HID inventoryOwnerID;
+        public List<Struct.Item> itemList = new List<Struct.Item>(); 
+        public Dictionary<int, Struct.Item> itemMap = new Dictionary<int, Struct.Item>();
 
-        public HID ownerID;
-        public List<Item> itemList = new List<Item>(); 
-        public Dictionary<int, Item> itemMap = new Dictionary<int, Item>();
-
-        public void AddItem(int id)
+        public void AddItem(Struct.Item item)
         {
-
+            item.OwnerId = (int)inventoryOwnerID;
+            itemList.Add(item);
+            itemMap.Add(item.EntityId, item); 
+            player.room.srv.s2cProxy.NotifyInventoryItemAdd(inventoryOwnerID, RMI.ReliableSend, item);
         }
 
-        public void RemoveItem(int id)
+        public void RemoveItemByEntityId(int entityId)
         {
-
+            var item = itemMap[entityId];
+            itemMap.Remove(entityId);
+            itemList.Remove(item);
         }
     }
 }

@@ -209,6 +209,58 @@ MyMarshaler.Write(__msg, createdPosition);
 	return RmiSend(remotes,rmiContext,__msg,
 		RmiName_NotifyPlayerCreate, Common.NotifyPlayerCreate);
 }
+public bool NotifyDestroyEntity(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId)
+{
+	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
+		__msg.SimplePacketMode = core.IsSimplePacketMode();
+		Nettention.Proud.RmiID __msgid= Common.NotifyDestroyEntity;
+		__msg.Write(__msgid);
+		MyMarshaler.Write(__msg, entityId);
+		
+	Nettention.Proud.HostID[] __list = new Nettention.Proud.HostID[1];
+	__list[0] = remote;
+		
+	return RmiSend(__list,rmiContext,__msg,
+		RmiName_NotifyDestroyEntity, Common.NotifyDestroyEntity);
+}
+
+public bool NotifyDestroyEntity(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext, int entityId)
+{
+	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
+__msg.SimplePacketMode = core.IsSimplePacketMode();
+Nettention.Proud.RmiID __msgid= Common.NotifyDestroyEntity;
+__msg.Write(__msgid);
+MyMarshaler.Write(__msg, entityId);
+		
+	return RmiSend(remotes,rmiContext,__msg,
+		RmiName_NotifyDestroyEntity, Common.NotifyDestroyEntity);
+}
+public bool NotifyInventoryItemAdd(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.Item item)
+{
+	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
+		__msg.SimplePacketMode = core.IsSimplePacketMode();
+		Nettention.Proud.RmiID __msgid= Common.NotifyInventoryItemAdd;
+		__msg.Write(__msgid);
+		MyMarshaler.Write(__msg, item);
+		
+	Nettention.Proud.HostID[] __list = new Nettention.Proud.HostID[1];
+	__list[0] = remote;
+		
+	return RmiSend(__list,rmiContext,__msg,
+		RmiName_NotifyInventoryItemAdd, Common.NotifyInventoryItemAdd);
+}
+
+public bool NotifyInventoryItemAdd(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.Item item)
+{
+	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
+__msg.SimplePacketMode = core.IsSimplePacketMode();
+Nettention.Proud.RmiID __msgid= Common.NotifyInventoryItemAdd;
+__msg.Write(__msgid);
+MyMarshaler.Write(__msg, item);
+		
+	return RmiSend(remotes,rmiContext,__msg,
+		RmiName_NotifyInventoryItemAdd, Common.NotifyInventoryItemAdd);
+}
 public bool GivePlayerItem(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, HostID PlayerHostID)
 {
 	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
@@ -245,6 +297,8 @@ public const string RmiName_NotifyServerMessage="NotifyServerMessage";
 public const string RmiName_NotifyItemCreate="NotifyItemCreate";
 public const string RmiName_NotifyEntityMove="NotifyEntityMove";
 public const string RmiName_NotifyPlayerCreate="NotifyPlayerCreate";
+public const string RmiName_NotifyDestroyEntity="NotifyDestroyEntity";
+public const string RmiName_NotifyInventoryItemAdd="NotifyInventoryItemAdd";
 public const string RmiName_GivePlayerItem="GivePlayerItem";
        
 public const string RmiName_First = RmiName_SendTest;
@@ -258,6 +312,8 @@ public const string RmiName_NotifyServerMessage="";
 public const string RmiName_NotifyItemCreate="";
 public const string RmiName_NotifyEntityMove="";
 public const string RmiName_NotifyPlayerCreate="";
+public const string RmiName_NotifyDestroyEntity="";
+public const string RmiName_NotifyInventoryItemAdd="";
 public const string RmiName_GivePlayerItem="";
        
 public const string RmiName_First = "";

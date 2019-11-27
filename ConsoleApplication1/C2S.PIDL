@@ -3,10 +3,8 @@ using(cs) Nettention.Proud;
 global Game.Network.C2S 2000 
 { 
 	SendTest([in] string value);
-    SendTest2([in] UnityEngine.Vector3 value);
-
+    SendTest2([in] UnityEngine.Vector3 value); 
 	ReqJoinGame();
-	ReqMove([in] int entityId, [in] UnityEngine.Vector3 position); 
-	
+	ReqMove([in] int entityId, [in] UnityEngine.Vector3 position);  
 }       
  

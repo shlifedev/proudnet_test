@@ -1,0 +1,1 @@
+[{"Index":"101","EN":"Knife","KR":"칼"},{"Index":"102","EN":"Revolver","KR":"리볼버"},{"Index":"103","EN":"Knife","KR":"나이프"}]

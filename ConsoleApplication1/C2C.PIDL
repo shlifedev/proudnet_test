@@ -3,6 +3,7 @@ using(cs) Nettention.Proud;
 global Game.Network.C2C 1000 
 {
 	Movement([in] UnityEngine.Vector3 position);   
+	//테스트주석
 }       
  
 

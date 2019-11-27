@@ -46,6 +46,13 @@ namespace GameServer.Struct
             createEntity.entityIndex = room.CreateIdentifier();
             createEntity.position = position;
             createEntity.itemIndex = itemIndex;
+
+            var itemInfo = GameTable.Item.Info.Get(createEntity.itemIndex);
+            createEntity.item.OwnerId = 0;
+            createEntity.item.ItemIndex = itemIndex;
+            createEntity.item.EntityId = createEntity.entityIndex;
+            createEntity.item.MaxUse = itemInfo.MaxUse;
+            createEntity.item.RemainUseCount = itemInfo.MaxUse;  
             AddEntity(createEntity.entityIndex, createEntity);
          
             return createEntity;

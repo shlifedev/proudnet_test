@@ -51,9 +51,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\C2C_common.cs" />
+    <Compile Include="Common\C2C_proxy.cs" />
+    <Compile Include="Common\C2C_stub.cs" />
+    <Compile Include="Common\C2S_common.cs" />
+    <Compile Include="Common\C2S_proxy.cs" />
+    <Compile Include="Common\C2S_stub.cs" />
     <Compile Include="Common\MyMarshaler.cs" />
+    <Compile Include="Common\S2C_common.cs" />
+    <Compile Include="Common\S2C_proxy.cs" />
+    <Compile Include="Common\S2C_stub.cs" />
     <Compile Include="Common\Vars.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerStucture\GameEnums.cs" />
+    <Compile Include="ServerStucture\InventoryItem.cs" />
     <Compile Include="ServerStucture\NEntity.cs" />
   </ItemGroup>
   <ItemGroup />

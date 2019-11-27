@@ -24,7 +24,9 @@ namespace Game.Network.S2C
 			public const Nettention.Proud.RmiID NotifyItemCreate = (Nettention.Proud.RmiID)3000+5;
 			public const Nettention.Proud.RmiID NotifyEntityMove = (Nettention.Proud.RmiID)3000+6;
 			public const Nettention.Proud.RmiID NotifyPlayerCreate = (Nettention.Proud.RmiID)3000+7;
-			public const Nettention.Proud.RmiID GivePlayerItem = (Nettention.Proud.RmiID)3000+8;
+			public const Nettention.Proud.RmiID NotifyDestroyEntity = (Nettention.Proud.RmiID)3000+8;
+			public const Nettention.Proud.RmiID NotifyInventoryItemAdd = (Nettention.Proud.RmiID)3000+9;
+			public const Nettention.Proud.RmiID GivePlayerItem = (Nettention.Proud.RmiID)3000+10;
 		// List that has RMI ID.
 		public static Nettention.Proud.RmiID[] RmiIDList = new Nettention.Proud.RmiID[] {
 			SendTest,
@@ -34,6 +36,8 @@ namespace Game.Network.S2C
 			NotifyItemCreate,
 			NotifyEntityMove,
 			NotifyPlayerCreate,
+			NotifyDestroyEntity,
+			NotifyInventoryItemAdd,
 			GivePlayerItem,
 		};
 	}

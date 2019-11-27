@@ -14,6 +14,7 @@ namespace GameServer
 {
     public class GameRoomServer
     {
+         
         public GameRoom room;
         public NetServer srv = new NetServer();
         public Game.Network.C2S.Proxy c2sProxy = new Game.Network.C2S.Proxy();
@@ -31,14 +32,14 @@ namespace GameServer
         {
             srv.ClientJoinHandler = (lastConnectedHostID) =>
             {
-                Console.Write($"Player {lastConnectedHostID.hostID} 접속함. 테스트룸에 추가합니다. ");
+                Logger.Log(this,$"Player {lastConnectedHostID.hostID} 접속함. 테스트룸에 추가합니다. ");
                 room.JoinClient(lastConnectedHostID.hostID);
             };
 
             // set a routine for client leave event.
             srv.ClientLeaveHandler = (clientInfo, errorInfo, comment) =>
             {
-                Console.Write("Player {0} disconnected.\n", clientInfo.hostID);
+                Logger.Log(this, $"Player {clientInfo.hostID} disconnect");
                 room.LeaveClient(clientInfo.hostID);
             };
 
@@ -60,6 +61,10 @@ namespace GameServer
                 {
                     room.ShowOnlinePlayer();
                 }
+            }
+            if( v == "Start")
+            {
+                room.StartGame();
             }
 
             if (v == "EntityManager.Debug")
@@ -89,36 +94,42 @@ namespace GameServer
             //서버시작
             try
             {
-                Console.Write("GameRoom Created!");
+
+                Logger.Log(this, $"GameRoom Server Start | Port {Vars.m_serverPort} \n");
                 srv.Start(ssp);
             }
             catch (Exception e)
             {
-                Console.Write("Server start failed: {0}\n", e.ToString());
+                Console.WriteLine("Server start failed: {0}\n", e.ToString());
                 return;
             }
         }
     }
     public class GameRoom
     {
-        public GameRoom(GameRoomServer server, GameServer gameServer)
+
+        public Players players;
+        public GameRoom(GameRoomServer server, Server gameServer)
         {
             this.srv = server;
             this.gSrv = gameServer;
-            this.srv.room = this;
+            this.srv.room = this; 
+            players = new Players(); 
+            players.room = this; 
             entityManager = new NEntityManager(this);
             //임시로 스텁처리
             srv.c2sStub.ReqMove += OnReqEnityMove;
             srv.StartServer();
-          
+            gameManager = new GameManager(this); 
+            Logger.Log(this, "GameRoom Setting Succesfully");
         }
-        public GameServer gSrv = null;
+        public Server gSrv = null;
 
         public int identifier = 0;
         public NEntityManager entityManager;
         public List<HID> connectedHosts = new List<HID>();
         public GameRoomServer srv = new GameRoomServer();
-
+        public GameManager gameManager;
         public HID[] GetOthers(HID ignore)
         {
             int cur = 0;
@@ -134,15 +145,12 @@ namespace GameServer
             return hids;
         }
         public bool OnReqEnityMove(HID requester, RMI rmi, int entityId, UnityEngine.Vector3 pos)
-        {
-            Console.WriteLine("player move req!");
-
+        { 
             var entity = entityManager.entityMap[entityId];
 
             if (entity != null)
             {
-                entity.position = pos;
-                Console.WriteLine(pos);
+                entity.position = pos; 
                 foreach (var data in GetOthers(requester))
                 { 
                     srv.s2cProxy.NotifyEntityMove(data, RMI.ReliableSend, entityId, pos);
@@ -150,20 +158,21 @@ namespace GameServer
             }
             else
             {
-                Console.WriteLine("entity not found..");
+                Logger.Error(this, $"entity {entityId} not found..");
             }
             return true;
         }
-
         public void JoinClient(HID hostID)
         {
+
             connectedHosts.Add(hostID);
             var playerEntity = CreatePlayerEntity(new Vector2(0, 1), hostID);
+            players.AddPlayer(playerEntity, hostID,  this);
             foreach (var hid in connectedHosts)
             { 
                 srv.s2cProxy.NotifyServerMessage(hid, RMI.ReliableSend, $"Player {hostID} Connected.");
                 srv.s2cProxy.NotifyPlayerCreate(hid, RMI.ReliableSend, playerEntity.owner, playerEntity.entityIndex, playerEntity.position);
-  
+                
             }
 
             var entList = new NEntityList();
@@ -172,14 +181,14 @@ namespace GameServer
             srv.s2cProxy.NotifyJoinPlayer(hostID, RMI.ReliableSend, entList);
         }
         public void LeaveClient(HID hostID)
-        {
+        { 
             connectedHosts.Remove(hostID);
+            players.RemovePlayer(hostID);
             foreach (var hid in connectedHosts)
             {
                 srv.s2cProxy.NotifyServerMessage(hid, RMI.ReliableSend, $"Player {hostID} Leave. ");
             }
         }
-
         public void ShowOnlinePlayer()
         {
             string v = null;
@@ -196,6 +205,14 @@ namespace GameServer
             return identifier;
         }
 
+        public void StartGame()
+        {
+            gameManager.SettingPlayerStartItems();
+        }
+        public void EndGame()
+        {
+
+        }
         public NEntity CreatePlayerEntity(Vector2 position, HID ownerID)
         {
             NEntity playerEntity = entityManager.CreatePlayerEntity(position, ownerID);

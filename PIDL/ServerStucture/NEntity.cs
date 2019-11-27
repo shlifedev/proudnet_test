@@ -15,8 +15,14 @@ namespace GameServer.Struct
         public UnityEngine.Vector3 position;
     }
 
+    public class NPlayerEntity : NEntity
+    { 
+
+    }
+
     public class NItemEntity : NEntity
     {
         public int itemIndex;
+        public Item item;
     }
 }

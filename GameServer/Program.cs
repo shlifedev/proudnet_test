@@ -9,8 +9,9 @@ namespace GameServer
     class Program
     {
         static void Main(string[] args)
-        { 
-            GameServer server = new GameServer(); 
+        {
+   
+            Server server = new Server(); 
         }
     }
 }

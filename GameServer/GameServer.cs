@@ -9,15 +9,15 @@ namespace GameServer
     /// <summary>
     /// 테스트서버
     /// </summary>
-    public class GameServer
+    public class Server
     {   
-        public GameServer()
+        public Server()
         {
             GameRoom room = new GameRoom(new GameRoomServer(), this); 
             while (true)
-            {
+            { 
                 var data = Console.ReadLine(); 
-                room.srv.ConsoleCommand(data);
+                room.srv.ConsoleCommand(data); 
             }
         }
     }

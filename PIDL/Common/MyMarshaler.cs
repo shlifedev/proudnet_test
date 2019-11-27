@@ -41,16 +41,29 @@ public class MyMarshaler : Nettention.Proud.Marshaler
         msg.Read(out entity.position.z);
     }
 
+    public static void Write(Nettention.Proud.Message msg, GameServer.Struct.Item item)
+    {
+        msg.Write(item.EntityId);
+        msg.Write(item.OwnerId);
+        msg.Write(item.ItemIndex);
+        msg.Write(item.MaxUse);
+        msg.Write(item.RemainUseCount);
+    }
+    public static void Read(Nettention.Proud.Message msg, out GameServer.Struct.Item item)
+    {
+        item = new GameServer.Struct.Item();
+        msg.Read(out item.EntityId);
+        msg.Read(out item.OwnerId);
+        msg.Read(out item.ItemIndex);
+        msg.Read(out item.MaxUse);
+        msg.Read(out item.RemainUseCount);
+    }
     public static void Write(Nettention.Proud.Message msg, GameServer.Struct.NEntityList entity)
     {
         msg.Write(entity.count);
         for (int i = 0; i < entity.list.Count; i++)
         {
-            msg.Write(entity.list[i].owner);
-            msg.Write(entity.list[i].entityIndex);
-            msg.Write(entity.list[i].position.x);
-            msg.Write(entity.list[i].position.y);
-            msg.Write(entity.list[i].position.z);
+            Write(msg, entity.list[i]); 
         }
     }
     public static void Read(Nettention.Proud.Message msg, out GameServer.Struct.NEntityList entity)
@@ -59,12 +72,8 @@ public class MyMarshaler : Nettention.Proud.Marshaler
         msg.Read(out entity.count);
         for (int i = 0; i < entity.count; i++)
         {
-            var ent = new GameServer.Struct.NEntity();
-            var v1 = msg.Read(out ent.owner);
-            msg.Read(out ent.entityIndex);
-            msg.Read(out ent.position.x);
-            msg.Read(out ent.position.y);
-            msg.Read(out ent.position.z);
+            var ent = new GameServer.Struct.NEntity(); 
+            Read(msg, out ent); 
             entity.list.Add(ent);
         }
     }

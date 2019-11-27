@@ -8,12 +8,12 @@ set excelPath=xlsx
 ::cs파일을 저장할 경로
 ::ex) c:\....\cs
 rem csPath
-set csPath=C:\Users\shlif\Documents\GitHub\MyDetectiveServer\GameServer\Table
+set csPath=C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameServer\Table
 
 ::json파일을 저장할 경로
 ::ex) c:\....\json
 rem jsonPath
-set jsonPath=C:\Users\shlif\Documents\GitHub\MyDetectiveServer\GameServer\bin\Debug\TableDatas
+set jsonPath=C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameServer\bin\Debug\TableDatas
 
 TB.exe %excelPath% %csPath% %jsonPath%
 

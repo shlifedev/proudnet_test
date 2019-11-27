@@ -22,3 +22,15 @@ C:\Users\shlif\Documents\GitHub\MyDetectiveServer\PIDL\bin\Debug\ProudDotNetClie
 C:\Users\shlif\Documents\GitHub\MyDetectiveServer\PIDL\bin\Debug\ProudDotNetServer.pdb
 C:\Users\shlif\Documents\GitHub\MyDetectiveServer\PIDL\bin\Debug\UnityEngine.xml
 C:\Users\shlif\Documents\GitHub\MyDetectiveServer\PIDL\obj\Debug\PIDL.csproj.CopyComplete
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\PIDL\bin\Debug\PIDL.dll
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\PIDL\bin\Debug\PIDL.pdb
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\PIDL\bin\Debug\ProudDotNetClient.dll
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\PIDL\bin\Debug\ProudDotNetServer.dll
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\PIDL\bin\Debug\UnityEngine.dll
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\PIDL\bin\Debug\ProudDotNetClient.pdb
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\PIDL\bin\Debug\ProudDotNetServer.pdb
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\PIDL\bin\Debug\UnityEngine.xml
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\PIDL\obj\Debug\PIDL.csprojAssemblyReference.cache
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\PIDL\obj\Debug\PIDL.csproj.CopyComplete
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\PIDL\obj\Debug\PIDL.dll
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\PIDL\obj\Debug\PIDL.pdb
