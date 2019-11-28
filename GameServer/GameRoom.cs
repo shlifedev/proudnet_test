@@ -30,6 +30,7 @@ namespace GameServer
         }
         private void ServerCallbackHandle()
         {
+            
             srv.ClientJoinHandler = (lastConnectedHostID) =>
             {
                 Logger.Log(this,$"Player {lastConnectedHostID.hostID} 접속함. 테스트룸에 추가합니다. ");
@@ -207,7 +208,10 @@ namespace GameServer
 
         public void StartGame()
         {
+            //플레이어 아이템설정
             gameManager.SettingPlayerStartItems();
+            //플레이어 랜덤킬러 설정
+            gameManager.SetRandomKiller();
         }
         public void EndGame()
         {

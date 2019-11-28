@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
+    /// <summary>
+    /// 게임 매니저, 게임의 플로우를 제어하는곳.
+    /// </summary>
     public class GameManager
     {
         private GameInitializer gameInitializer;
@@ -17,6 +20,16 @@ namespace GameServer
         }
         public GameRoom room;
 
+
+        public void SetRandomKiller()
+        {
+            System.Random rand = new Random();
+            var picked = rand.Next(0, room.players.playerList.Count);
+            var player = room.players.playerList[picked];
+            player.IsKiller = true;
+            Logger.Log(this, $"Player{player.hostID} Is a Killer Now!");
+
+        }
         public void SettingPlayerStartItems()
         {
             Logger.Log(this, "SettingPlayerStartItems... ");

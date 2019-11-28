@@ -1,0 +1,15 @@
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\bin\Debug\GameTestVirtualClient.exe.config
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\bin\Debug\GameTestVirtualClient.exe
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\bin\Debug\GameTestVirtualClient.pdb
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\bin\Debug\ProudDotNetClient.dll
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\bin\Debug\ProudDotNetClient.pdb
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\obj\Debug\GameTestVirtualClient.csprojAssemblyReference.cache
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\obj\Debug\GameTestVirtualClient.csproj.CopyComplete
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\obj\Debug\GameTestVirtualClient.exe
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\obj\Debug\GameTestVirtualClient.pdb
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\bin\Debug\ProudDotNetServer.dll
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\bin\Debug\ProudDotNetServer.pdb
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\bin\Debug\PIDL.dll
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\bin\Debug\UnityEngine.dll
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\bin\Debug\PIDL.pdb
+C:\Users\shlif\Documents\GitHub\MyDetectiveServer2\GameTestVirtualClient\bin\Debug\UnityEngine.xml

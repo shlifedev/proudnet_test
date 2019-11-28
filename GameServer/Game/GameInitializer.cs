@@ -10,8 +10,8 @@ using Vector2 = UnityEngine.Vector2;
 using UnityEngine;
 namespace GameServer
 {
-    /// <summary>
-    /// 게임 이니셜라이저.
+    /// <summary> 
+    /// 게임 이니셜라이저, 필요한 정보를 로드하는곳.
     /// </summary>
     public class GameInitializer
     {
@@ -22,6 +22,7 @@ namespace GameServer
         }
         public GameRoom room;
         public List<Struct.Item> ItemList = new List<Struct.Item>();
+       
         public void Init()
         { 
             ItemList.Clear(); 
