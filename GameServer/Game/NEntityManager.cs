@@ -20,8 +20,7 @@ namespace GameServer.Struct
         }
         public GameRoom room;
         public List<NEntity> entitiList = new List<NEntity>();
-        public Dictionary<int, NEntity> entityMap = new Dictionary<int, NEntity>();
-        public Dictionary<int, NItemEntity> itemEntityMap = new Dictionary<int, NItemEntity>();
+        public Dictionary<int, NEntity> entityMap = new Dictionary<int, NEntity>(); 
         public List<NEntity> playerList = new List<NEntity>();
         public void AddEntity(int index, NEntity entity)
         {
@@ -36,6 +35,7 @@ namespace GameServer.Struct
         {
             if (entityMap.ContainsKey(index) == true)
             {
+                Logger.Log(this, "Entity Remove! =>" + index);
                 entitiList.Remove(entityMap[index]);
                 entityMap.Remove(index);
             }

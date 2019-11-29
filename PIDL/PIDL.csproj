@@ -63,6 +63,7 @@
     <Compile Include="Common\S2C_stub.cs" />
     <Compile Include="Common\Vars.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerStucture\NBuff.cs" />
     <Compile Include="ServerStucture\GameEnums.cs" />
     <Compile Include="ServerStucture\InventoryItem.cs" />
     <Compile Include="ServerStucture\NEntity.cs" />

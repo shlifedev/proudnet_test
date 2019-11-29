@@ -65,6 +65,7 @@
     <Compile Include="Game\GameManager.cs" />
     <Compile Include="Game\GameInitializer.cs" />
     <Compile Include="Game\GameRule.cs" />
+    <Compile Include="Game\NBuffManager.cs" />
     <Compile Include="Game\PlayerInventory.cs" />
     <Compile Include="GameRoom.cs" />
     <Compile Include="GameServer.cs" />

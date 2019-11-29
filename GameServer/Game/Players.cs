@@ -46,6 +46,11 @@ namespace GameServer
             return null;
         }
 
+        public Player GetPlayerByEntityId(HID id)
+        {
+            return GetPlayerByEntityId((int)id);
+        }
+
         public Player GetPlayerByHostId(int id)
         {
             foreach (var data in playerList)

@@ -145,7 +145,7 @@ namespace GameServer
             }
             return hids;
         }
-        public bool OnReqEnityMove(HID requester, RMI rmi, int entityId, UnityEngine.Vector3 pos)
+        public bool OnReqEnityMove(HID requester, RMI rmi, int entityId, UnityEngine.Vector3 pos, Vector3 vel)
         { 
             var entity = entityManager.entityMap[entityId];
 
@@ -154,7 +154,7 @@ namespace GameServer
                 entity.position = pos; 
                 foreach (var data in GetOthers(requester))
                 { 
-                    srv.s2cProxy.NotifyEntityMove(data, RMI.ReliableSend, entityId, pos);
+                    srv.s2cProxy.NotifyEntityMove(data, RMI.ReliableSend, entityId, pos, vel);
                 }
             }
             else
@@ -184,7 +184,13 @@ namespace GameServer
         public void LeaveClient(HID hostID)
         { 
             connectedHosts.Remove(hostID);
+            var player = players.GetPlayerByEntityId((int)hostID); 
             players.RemovePlayer(hostID);
+            var entity = entityManager.entitiList.Find(x => x.owner == (int)hostID);
+            if (entity != null)
+            { 
+                entityManager.RemoveEntity(entity.entityIndex);
+            }
             foreach (var hid in connectedHosts)
             {
                 srv.s2cProxy.NotifyServerMessage(hid, RMI.ReliableSend, $"Player {hostID} Leave. ");

@@ -33,8 +33,13 @@ public BeforeRmiInvocationDelegate BeforeRmiInvocation = delegate(Nettention.Pro
 		{ 
 			return false;
 		};
-		public delegate bool ReqMoveDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, UnityEngine.Vector3 position);  
-		public ReqMoveDelegate ReqMove = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, UnityEngine.Vector3 position)
+		public delegate bool ReqMoveDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, UnityEngine.Vector3 position, UnityEngine.Vector3 vel);  
+		public ReqMoveDelegate ReqMove = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, UnityEngine.Vector3 position, UnityEngine.Vector3 vel)
+		{ 
+			return false;
+		};
+		public delegate bool ReqUseItemDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int targetEntityId, int itemEntityId);  
+		public ReqUseItemDelegate ReqUseItem = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int targetEntityId, int itemEntityId)
 		{ 
 			return false;
 		};
@@ -65,6 +70,9 @@ public BeforeRmiInvocationDelegate BeforeRmiInvocation = delegate(Nettention.Pro
             break;
         case Common.ReqMove:
             ProcessReceivedMessage_ReqMove(__msg, pa, hostTag, remote);
+            break;
+        case Common.ReqUseItem:
+            ProcessReceivedMessage_ReqUseItem(__msg, pa, hostTag, remote);
             break;
 		default:
 			 goto __fail;
@@ -235,12 +243,14 @@ core.PostCheckReadMessage(__msg, RmiName_SendTest2);
 
         int entityId; MyMarshaler.Read(__msg,out entityId);	
 UnityEngine.Vector3 position; MyMarshaler.Read(__msg,out position);	
+UnityEngine.Vector3 vel; MyMarshaler.Read(__msg,out vel);	
 core.PostCheckReadMessage(__msg, RmiName_ReqMove);
         if(enableNotifyCallFromStub==true)
         {
         string parameterString = "";
         parameterString+=entityId.ToString()+",";
 parameterString+=position.ToString()+",";
+parameterString+=vel.ToString()+",";
         NotifyCallFromStub(Common.ReqMove, RmiName_ReqMove,parameterString);
         }
 
@@ -257,7 +267,7 @@ parameterString+=position.ToString()+",";
         long t0 = Nettention.Proud.PreciseCurrentTime.GetTimeMs();
 
         // Call this method.
-        bool __ret =ReqMove (remote,ctx , entityId, position );
+        bool __ret =ReqMove (remote,ctx , entityId, position, vel );
 
         if(__ret==false)
         {
@@ -276,6 +286,58 @@ parameterString+=position.ToString()+",";
         AfterRmiInvocation(summary);
         }
     }
+    void ProcessReceivedMessage_ReqUseItem(Nettention.Proud.Message __msg, Nettention.Proud.ReceivedMessage pa, Object hostTag, Nettention.Proud.HostID remote)
+    {
+        Nettention.Proud.RmiContext ctx = new Nettention.Proud.RmiContext();
+        ctx.sentFrom=pa.RemoteHostID;
+        ctx.relayed=pa.IsRelayed;
+        ctx.hostTag=hostTag;
+        ctx.encryptMode = pa.EncryptMode;
+        ctx.compressMode = pa.CompressMode;
+
+        int targetEntityId; MyMarshaler.Read(__msg,out targetEntityId);	
+int itemEntityId; MyMarshaler.Read(__msg,out itemEntityId);	
+core.PostCheckReadMessage(__msg, RmiName_ReqUseItem);
+        if(enableNotifyCallFromStub==true)
+        {
+        string parameterString = "";
+        parameterString+=targetEntityId.ToString()+",";
+parameterString+=itemEntityId.ToString()+",";
+        NotifyCallFromStub(Common.ReqUseItem, RmiName_ReqUseItem,parameterString);
+        }
+
+        if(enableStubProfiling)
+        {
+        Nettention.Proud.BeforeRmiSummary summary = new Nettention.Proud.BeforeRmiSummary();
+        summary.rmiID = Common.ReqUseItem;
+        summary.rmiName = RmiName_ReqUseItem;
+        summary.hostID = remote;
+        summary.hostTag = hostTag;
+        BeforeRmiInvocation(summary);
+        }
+
+        long t0 = Nettention.Proud.PreciseCurrentTime.GetTimeMs();
+
+        // Call this method.
+        bool __ret =ReqUseItem (remote,ctx , targetEntityId, itemEntityId );
+
+        if(__ret==false)
+        {
+        // Error: RMI function that a user did not create has been called. 
+        core.ShowNotImplementedRmiWarning(RmiName_ReqUseItem);
+        }
+
+        if(enableStubProfiling)
+        {
+        Nettention.Proud.AfterRmiSummary summary = new Nettention.Proud.AfterRmiSummary();
+        summary.rmiID = Common.ReqUseItem;
+        summary.rmiName = RmiName_ReqUseItem;
+        summary.hostID = remote;
+        summary.hostTag = hostTag;
+        summary.elapsedTime = Nettention.Proud.PreciseCurrentTime.GetTimeMs()-t0;
+        AfterRmiInvocation(summary);
+        }
+    }
 #if USE_RMI_NAME_STRING
 // RMI name declaration.
 // It is the unique pointer that indicates RMI name such as RMI profiler.
@@ -283,6 +345,7 @@ public const string RmiName_SendTest="SendTest";
 public const string RmiName_SendTest2="SendTest2";
 public const string RmiName_ReqJoinGame="ReqJoinGame";
 public const string RmiName_ReqMove="ReqMove";
+public const string RmiName_ReqUseItem="ReqUseItem";
        
 public const string RmiName_First = RmiName_SendTest;
 #else
@@ -292,6 +355,7 @@ public const string RmiName_SendTest="";
 public const string RmiName_SendTest2="";
 public const string RmiName_ReqJoinGame="";
 public const string RmiName_ReqMove="";
+public const string RmiName_ReqUseItem="";
        
 public const string RmiName_First = "";
 #endif
