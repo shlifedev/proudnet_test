@@ -22,7 +22,7 @@ namespace GameServer
         }
         public GameRoom room;
         public List<Struct.Item> ItemList = new List<Struct.Item>();
-       
+        
         public void Init()
         { 
             ItemList.Clear(); 
@@ -38,23 +38,12 @@ namespace GameServer
                     item.ItemIndex = itemInfo.Index;
                     item.MaxUse = itemInfo.MaxUse;
                     item.RemainUseCount = itemInfo.MaxUse;
-                    item.OwnerId = 0;
+                    item.OwnerId = 0; 
                     this.ItemList.Add(item); 
                 }
             }
             Logger.Log(this, "PlayerItemList Initialized!");
-        }
-
-        /// <summary>
-        /// 플레이어에게 나누어주는 작업.
-        /// </summary>
-        public void SplitAndGiveToPlayer(Players players)
-        {
-            for (int i = 0; i < players.playerList.Count; i++)
-            {
-                var player = players.playerList[i]; 
-            }
-        }
+        } 
 
     }
 }

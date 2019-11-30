@@ -16,7 +16,7 @@ namespace GameServer
         public System.Action<NBuff> onNBuffRemove;
 
         public List<NBuff> NBuffList = new List<NBuff>();
-        public bool IsHasNBuff(BuffType buffType)
+        public bool IsHasNBuff(EBuffType buffType)
         {
             var NBuff = NBuffList.Find(x => x.buffType == buffType);
             return NBuff != null;
@@ -24,7 +24,7 @@ namespace GameServer
 
         public bool IsDie()
         {
-            var NBuff = NBuffList.Find(x => x.buffType == BuffType.Die);
+            var NBuff = NBuffList.Find(x => x.buffType == EBuffType.Die);
             return NBuff != null;
         }
 
@@ -36,12 +36,12 @@ namespace GameServer
             //buff.buffType = GameTable.Buff.Info.Get(buffIndex);
 
            // buff.endTIme = owner.room.srv.srv.GetTimeMs();
-            onNBuffAdd?.Invoke(NBuff);
-            if (!IsHasNBuff(NBuff.buffType))
+            onNBuffAdd?.Invoke(buff);
+            if (!IsHasNBuff(buff.buffType))
             {
-                this.NBuffList.Add(NBuff);
+                this.NBuffList.Add(buff);
             }
-            onNBuffAdded?.Invoke(NBuff);
+            onNBuffAdded?.Invoke(buff);
         }
         public void RemoveNBuff(NBuff NBuff)
         {

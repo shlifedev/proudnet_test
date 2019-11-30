@@ -2,7 +2,7 @@
 using System.Collections;
 namespace GameServer.Struct
 {
-
+    [System.Serializable]
     public class Item
     {
         public int EntityId;

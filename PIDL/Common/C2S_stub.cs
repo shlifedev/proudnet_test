@@ -38,8 +38,8 @@ public BeforeRmiInvocationDelegate BeforeRmiInvocation = delegate(Nettention.Pro
 		{ 
 			return false;
 		};
-		public delegate bool ReqUseItemDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int targetEntityId, int itemEntityId);  
-		public ReqUseItemDelegate ReqUseItem = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int targetEntityId, int itemEntityId)
+		public delegate bool ReqUseItemDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int playerEID, int targetEntityId, int itemEntityId);  
+		public ReqUseItemDelegate ReqUseItem = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int playerEID, int targetEntityId, int itemEntityId)
 		{ 
 			return false;
 		};
@@ -295,13 +295,15 @@ parameterString+=vel.ToString()+",";
         ctx.encryptMode = pa.EncryptMode;
         ctx.compressMode = pa.CompressMode;
 
-        int targetEntityId; MyMarshaler.Read(__msg,out targetEntityId);	
+        int playerEID; MyMarshaler.Read(__msg,out playerEID);	
+int targetEntityId; MyMarshaler.Read(__msg,out targetEntityId);	
 int itemEntityId; MyMarshaler.Read(__msg,out itemEntityId);	
 core.PostCheckReadMessage(__msg, RmiName_ReqUseItem);
         if(enableNotifyCallFromStub==true)
         {
         string parameterString = "";
-        parameterString+=targetEntityId.ToString()+",";
+        parameterString+=playerEID.ToString()+",";
+parameterString+=targetEntityId.ToString()+",";
 parameterString+=itemEntityId.ToString()+",";
         NotifyCallFromStub(Common.ReqUseItem, RmiName_ReqUseItem,parameterString);
         }
@@ -319,7 +321,7 @@ parameterString+=itemEntityId.ToString()+",";
         long t0 = Nettention.Proud.PreciseCurrentTime.GetTimeMs();
 
         // Call this method.
-        bool __ret =ReqUseItem (remote,ctx , targetEntityId, itemEntityId );
+        bool __ret =ReqUseItem (remote,ctx , playerEID, targetEntityId, itemEntityId );
 
         if(__ret==false)
         {

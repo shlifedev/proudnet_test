@@ -10,10 +10,11 @@ namespace GameServer.Struct
     }
     public class NEntity
     {
-        public int owner = -1;
+        public int ownerHostID = -1;
         public int entityIndex;
         public UnityEngine.Vector3 position;
     }
+
 
     public class NPlayerEntity : NEntity
     { 

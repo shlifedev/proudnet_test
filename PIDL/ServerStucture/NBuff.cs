@@ -8,7 +8,7 @@ namespace GameServer.Struct
 {
     public class NBuff
     {
-        public BuffType buffType;
+        public EBuffType buffType;
         public float givenTime;
         public float endTIme;
     }

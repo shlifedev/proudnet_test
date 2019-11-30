@@ -22,6 +22,8 @@ namespace GameServer.Struct
         public List<NEntity> entitiList = new List<NEntity>();
         public Dictionary<int, NEntity> entityMap = new Dictionary<int, NEntity>(); 
         public List<NEntity> playerList = new List<NEntity>();
+        public List<NEntity> npcList = new List<NEntity>();
+     
         public void AddEntity(int index, NEntity entity)
         {
             if (entityMap.ContainsKey(index) == false)
@@ -40,6 +42,8 @@ namespace GameServer.Struct
                 entityMap.Remove(index);
             }
         }
+
+
         public NItemEntity CreateItemEntity(int itemIndex, Vector2 position)
         {
             NItemEntity createEntity = new NItemEntity();
@@ -54,7 +58,7 @@ namespace GameServer.Struct
             createEntity.item.MaxUse = itemInfo.MaxUse;
             createEntity.item.RemainUseCount = itemInfo.MaxUse;  
             AddEntity(createEntity.entityIndex, createEntity);
-         
+            Logger.Log(this, $"Item {itemIndex} Create!");
             return createEntity;
         }
         public NEntity CreatePlayerEntity(Vector2 position, HID ownerID)
@@ -62,9 +66,22 @@ namespace GameServer.Struct
             NEntity playerEntity = new NEntity();
             playerEntity.position = position;
             playerEntity.entityIndex = room.CreateIdentifier();
-            playerEntity.owner = (int)ownerID;
+            playerEntity.ownerHostID = (int)ownerID;
             AddEntity(playerEntity.entityIndex, playerEntity);
             playerList.Add(playerEntity);
+            Logger.Log(this, $"Player {ownerID} Create!");
+            return playerEntity;
+        }
+
+        public NEntity CreateNPCEntity(int npcIndex, Vector2 position)
+        {
+            NEntity playerEntity = new NEntity();
+            playerEntity.position = position;
+            playerEntity.entityIndex = room.CreateIdentifier();
+            playerEntity.ownerHostID = (int)HID.HostID_Server; 
+            AddEntity(playerEntity.entityIndex, playerEntity);
+            npcList.Add(playerEntity);
+            Logger.Log(this, $"NPC {npcIndex} Create!");
             return playerEntity;
         }
     }

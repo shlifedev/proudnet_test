@@ -14,6 +14,7 @@ namespace GameTestVirtualClient
 
     class Program
     {
+      
         public int count = 5;
         static void Main(string[] args)
         {

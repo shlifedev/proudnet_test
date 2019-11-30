@@ -24,11 +24,13 @@ namespace Game.Network.S2C
 			public const Nettention.Proud.RmiID NotifyItemCreate = (Nettention.Proud.RmiID)3000+5;
 			public const Nettention.Proud.RmiID NotifyEntityMove = (Nettention.Proud.RmiID)3000+6;
 			public const Nettention.Proud.RmiID NotifyPlayerCreate = (Nettention.Proud.RmiID)3000+7;
-			public const Nettention.Proud.RmiID NotifyDestroyEntity = (Nettention.Proud.RmiID)3000+8;
-			public const Nettention.Proud.RmiID NotifyInventoryItemAdd = (Nettention.Proud.RmiID)3000+9;
-			public const Nettention.Proud.RmiID GivePlayerItem = (Nettention.Proud.RmiID)3000+10;
-			public const Nettention.Proud.RmiID NotifyPlayerItemUse = (Nettention.Proud.RmiID)3000+11;
-			public const Nettention.Proud.RmiID NotifyEntityBuffAdd = (Nettention.Proud.RmiID)3000+12;
+			public const Nettention.Proud.RmiID NotifyNPCList = (Nettention.Proud.RmiID)3000+8;
+			public const Nettention.Proud.RmiID NotifyNPCCreate = (Nettention.Proud.RmiID)3000+9;
+			public const Nettention.Proud.RmiID NotifyDestroyEntity = (Nettention.Proud.RmiID)3000+10;
+			public const Nettention.Proud.RmiID NotifyInventoryItemAdd = (Nettention.Proud.RmiID)3000+11;
+			public const Nettention.Proud.RmiID GivePlayerItem = (Nettention.Proud.RmiID)3000+12;
+			public const Nettention.Proud.RmiID NotifyPlayerItemUse = (Nettention.Proud.RmiID)3000+13;
+			public const Nettention.Proud.RmiID NotifyEntityBuffAdd = (Nettention.Proud.RmiID)3000+14;
 		// List that has RMI ID.
 		public static Nettention.Proud.RmiID[] RmiIDList = new Nettention.Proud.RmiID[] {
 			SendTest,
@@ -38,6 +40,8 @@ namespace Game.Network.S2C
 			NotifyItemCreate,
 			NotifyEntityMove,
 			NotifyPlayerCreate,
+			NotifyNPCList,
+			NotifyNPCCreate,
 			NotifyDestroyEntity,
 			NotifyInventoryItemAdd,
 			GivePlayerItem,

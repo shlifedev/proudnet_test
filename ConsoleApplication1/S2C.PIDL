@@ -13,6 +13,10 @@ global Game.Network.S2C 3000
 	NotifyEntityMove([in] int id, [in] UnityEngine.Vector3 position, [in] UnityEngine.Vector3 vel); 
 	/* 플레이어 생성 알림 */
 	NotifyPlayerCreate([in] int ownerHid, [in] int entityId, [in] UnityEngine.Vector3 createdPosition);   
+	/* 서버내에 생성되어있는 엔피시리스트 제공 */
+	NotifyNPCList([in] GameServer.Struct.NEntityList npcList);
+    /* 서버내에 생성되어있는 엔피시리스트 제공 */
+	NotifyNPCCreate([in] GameServer.Struct.NEntity npcData);
 	/* 엔티티가 파괴되었음을 알림*/
 	NotifyDestroyEntity([in] int entityId);  
 	/* 서버로부터 플레이어 아이템 받았을때 */
@@ -22,3 +26,4 @@ global Game.Network.S2C 3000
 	NotifyEntityBuffAdd([in] int entityId, [in] int buffIndex);
 }       
  
+	

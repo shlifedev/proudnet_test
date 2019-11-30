@@ -25,7 +25,7 @@ public class MyMarshaler : Nettention.Proud.Marshaler
 
     public static void Write(Nettention.Proud.Message msg, GameServer.Struct.NEntity entity)
     {
-        msg.Write(entity.owner);
+        msg.Write(entity.ownerHostID);
         msg.Write(entity.entityIndex);
         msg.Write(entity.position.x);
         msg.Write(entity.position.y);
@@ -34,7 +34,7 @@ public class MyMarshaler : Nettention.Proud.Marshaler
     public static void Read(Nettention.Proud.Message msg, out GameServer.Struct.NEntity entity)
     {
         entity = new GameServer.Struct.NEntity();
-        msg.Read(out entity.owner);
+        msg.Read(out entity.ownerHostID);
         msg.Read(out entity.entityIndex);
         msg.Read(out entity.position.x);
         msg.Read(out entity.position.y);

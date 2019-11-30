@@ -21,6 +21,7 @@ namespace GameServer
         public GameRoom room;
 
 
+        
         public void SetRandomKiller()
         {
             System.Random rand = new Random();

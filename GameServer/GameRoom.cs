@@ -78,7 +78,7 @@ namespace GameServer
                 Console.WriteLine("playerlist::");
                 for (int i = 0; i < room.entityManager.playerList.Count; i++)
                 {
-                    Console.WriteLine(room.entityManager.playerList[i].owner + "registed!");
+                    Console.WriteLine(room.entityManager.playerList[i].ownerHostID + "registed!");
                 }
             }
         }
@@ -120,9 +120,11 @@ namespace GameServer
             entityManager = new NEntityManager(this);
             //임시로 스텁처리
             srv.c2sStub.ReqMove += OnReqEnityMove;
+            srv.c2sStub.ReqUseItem += players.OnStubItemUseReq;
             srv.StartServer();
             gameManager = new GameManager(this); 
             Logger.Log(this, "GameRoom Setting Succesfully");
+            this.CreateNPCEntity(new Vector2(-3, 0));
         }
         public Server gSrv = null;
 
@@ -172,21 +174,26 @@ namespace GameServer
             foreach (var hid in connectedHosts)
             { 
                 srv.s2cProxy.NotifyServerMessage(hid, RMI.ReliableSend, $"Player {hostID} Connected.");
-                srv.s2cProxy.NotifyPlayerCreate(hid, RMI.ReliableSend, playerEntity.owner, playerEntity.entityIndex, playerEntity.position);
-                
+                srv.s2cProxy.NotifyPlayerCreate(hid, RMI.ReliableSend, playerEntity.ownerHostID, playerEntity.entityIndex, playerEntity.position);
+              
             }
-
-            var entList = new NEntityList();
-            entList.list = entityManager.playerList;
-            entList.count = entityManager.playerList.Count;
-            srv.s2cProxy.NotifyJoinPlayer(hostID, RMI.ReliableSend, entList);
+            srv.s2cProxy.NotifyNPCList(hostID, RMI.ReliableSend, new NEntityList()
+            {
+                count = entityManager.npcList.Count,
+                list = entityManager.npcList
+            }); 
+            srv.s2cProxy.NotifyJoinPlayer(hostID, RMI.ReliableSend, new NEntityList
+            {
+                list = entityManager.playerList,
+                count = entityManager.playerList.Count
+            });
         }
         public void LeaveClient(HID hostID)
         { 
             connectedHosts.Remove(hostID);
             var player = players.GetPlayerByEntityId((int)hostID); 
             players.RemovePlayer(hostID);
-            var entity = entityManager.entitiList.Find(x => x.owner == (int)hostID);
+            var entity = entityManager.entitiList.Find(x => x.ownerHostID == (int)hostID);
             if (entity != null)
             { 
                 entityManager.RemoveEntity(entity.entityIndex);
@@ -213,7 +220,8 @@ namespace GameServer
         }
 
         public void StartGame()
-        {
+        { 
+            
             //플레이어 아이템설정
             gameManager.SettingPlayerStartItems();
             //플레이어 랜덤킬러 설정
@@ -232,6 +240,15 @@ namespace GameServer
             }
             return playerEntity;
         }
+        public NEntity CreateNPCEntity(Vector2 position)
+        {
+            NEntity playerEntity = entityManager.CreateNPCEntity(-1, position);
+            for (int i = 0; i < connectedHosts.Count; i++)
+            {
+                srv.s2cProxy.NotifyServerMessage(connectedHosts[i], RMI.ReliableSend, $"[Log]NPC ? Created! (pos:{position})");
+            }
+            return playerEntity;
+        } 
         public NItemEntity CreateItemEntity(int itemIndex, Vector2 position)
         {
             NItemEntity createEntity = entityManager.CreateItemEntity(itemIndex, position);

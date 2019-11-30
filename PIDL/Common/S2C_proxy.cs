@@ -211,6 +211,58 @@ MyMarshaler.Write(__msg, createdPosition);
 	return RmiSend(remotes,rmiContext,__msg,
 		RmiName_NotifyPlayerCreate, Common.NotifyPlayerCreate);
 }
+public bool NotifyNPCList(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.NEntityList npcList)
+{
+	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
+		__msg.SimplePacketMode = core.IsSimplePacketMode();
+		Nettention.Proud.RmiID __msgid= Common.NotifyNPCList;
+		__msg.Write(__msgid);
+		MyMarshaler.Write(__msg, npcList);
+		
+	Nettention.Proud.HostID[] __list = new Nettention.Proud.HostID[1];
+	__list[0] = remote;
+		
+	return RmiSend(__list,rmiContext,__msg,
+		RmiName_NotifyNPCList, Common.NotifyNPCList);
+}
+
+public bool NotifyNPCList(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.NEntityList npcList)
+{
+	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
+__msg.SimplePacketMode = core.IsSimplePacketMode();
+Nettention.Proud.RmiID __msgid= Common.NotifyNPCList;
+__msg.Write(__msgid);
+MyMarshaler.Write(__msg, npcList);
+		
+	return RmiSend(remotes,rmiContext,__msg,
+		RmiName_NotifyNPCList, Common.NotifyNPCList);
+}
+public bool NotifyNPCCreate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.NEntity npcData)
+{
+	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
+		__msg.SimplePacketMode = core.IsSimplePacketMode();
+		Nettention.Proud.RmiID __msgid= Common.NotifyNPCCreate;
+		__msg.Write(__msgid);
+		MyMarshaler.Write(__msg, npcData);
+		
+	Nettention.Proud.HostID[] __list = new Nettention.Proud.HostID[1];
+	__list[0] = remote;
+		
+	return RmiSend(__list,rmiContext,__msg,
+		RmiName_NotifyNPCCreate, Common.NotifyNPCCreate);
+}
+
+public bool NotifyNPCCreate(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.NEntity npcData)
+{
+	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
+__msg.SimplePacketMode = core.IsSimplePacketMode();
+Nettention.Proud.RmiID __msgid= Common.NotifyNPCCreate;
+__msg.Write(__msgid);
+MyMarshaler.Write(__msg, npcData);
+		
+	return RmiSend(remotes,rmiContext,__msg,
+		RmiName_NotifyNPCCreate, Common.NotifyNPCCreate);
+}
 public bool NotifyDestroyEntity(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId)
 {
 	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
@@ -289,13 +341,13 @@ MyMarshaler.Write(__msg, PlayerHostID);
 	return RmiSend(remotes,rmiContext,__msg,
 		RmiName_GivePlayerItem, Common.GivePlayerItem);
 }
-public bool NotifyPlayerItemUse(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int targetId, int itemEntityId)
+public bool NotifyPlayerItemUse(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int targetEntityId, int itemEntityId)
 {
 	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
 		__msg.SimplePacketMode = core.IsSimplePacketMode();
 		Nettention.Proud.RmiID __msgid= Common.NotifyPlayerItemUse;
 		__msg.Write(__msgid);
-		MyMarshaler.Write(__msg, targetId);
+		MyMarshaler.Write(__msg, targetEntityId);
 		MyMarshaler.Write(__msg, itemEntityId);
 		
 	Nettention.Proud.HostID[] __list = new Nettention.Proud.HostID[1];
@@ -305,13 +357,13 @@ public bool NotifyPlayerItemUse(Nettention.Proud.HostID remote,Nettention.Proud.
 		RmiName_NotifyPlayerItemUse, Common.NotifyPlayerItemUse);
 }
 
-public bool NotifyPlayerItemUse(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext, int targetId, int itemEntityId)
+public bool NotifyPlayerItemUse(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext, int targetEntityId, int itemEntityId)
 {
 	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
 __msg.SimplePacketMode = core.IsSimplePacketMode();
 Nettention.Proud.RmiID __msgid= Common.NotifyPlayerItemUse;
 __msg.Write(__msgid);
-MyMarshaler.Write(__msg, targetId);
+MyMarshaler.Write(__msg, targetEntityId);
 MyMarshaler.Write(__msg, itemEntityId);
 		
 	return RmiSend(remotes,rmiContext,__msg,
@@ -355,6 +407,8 @@ public const string RmiName_NotifyServerMessage="NotifyServerMessage";
 public const string RmiName_NotifyItemCreate="NotifyItemCreate";
 public const string RmiName_NotifyEntityMove="NotifyEntityMove";
 public const string RmiName_NotifyPlayerCreate="NotifyPlayerCreate";
+public const string RmiName_NotifyNPCList="NotifyNPCList";
+public const string RmiName_NotifyNPCCreate="NotifyNPCCreate";
 public const string RmiName_NotifyDestroyEntity="NotifyDestroyEntity";
 public const string RmiName_NotifyInventoryItemAdd="NotifyInventoryItemAdd";
 public const string RmiName_GivePlayerItem="GivePlayerItem";
@@ -372,6 +426,8 @@ public const string RmiName_NotifyServerMessage="";
 public const string RmiName_NotifyItemCreate="";
 public const string RmiName_NotifyEntityMove="";
 public const string RmiName_NotifyPlayerCreate="";
+public const string RmiName_NotifyNPCList="";
+public const string RmiName_NotifyNPCCreate="";
 public const string RmiName_NotifyDestroyEntity="";
 public const string RmiName_NotifyInventoryItemAdd="";
 public const string RmiName_GivePlayerItem="";

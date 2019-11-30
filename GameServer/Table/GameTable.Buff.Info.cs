@@ -17,7 +17,7 @@ static bool isLoaded = false;
 	public bool Removeable;
 	public bool RecordGiver;
 	public bool Stackable;
-	public bool Dropable;
+	public EBuffType BuffType;
 	public bool Tradeable;
 	public string SpritePath;
  

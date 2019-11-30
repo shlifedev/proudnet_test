@@ -6,6 +6,6 @@ global Game.Network.C2S 2000
     SendTest2([in] UnityEngine.Vector3 value); 
 	ReqJoinGame();
 	ReqMove([in] int entityId, [in] UnityEngine.Vector3 position, [in] UnityEngine.Vector3 vel);  
-	ReqUseItem([in] int targetEntityId, [in] int itemEntityId);
+	ReqUseItem([in] int playerEID, [in] int targetEntityId, [in] int itemEntityId);
 }       
  

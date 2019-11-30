@@ -21,7 +21,7 @@ public enum GameStatus
     End
 
 }
-public enum BuffType
+public enum EBuffType
 {
     Blooding,
     Stabbed, // 날카로운것에 찔리다
@@ -34,7 +34,7 @@ public enum BuffType
     ChinBreak, //턱 부서짐
     FingerBreak, //손가락 부러짐
     ArmBreak, //팔 부러짐
-    rednessOfFaceSkin // 얼굴 붉어짐
+    RednessOfFaceSkin // 얼굴 붉어짐
 
 
 }
