@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="ProudDotNetClient">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Nettention\ProudNet\lib\DotNet\ProudDotNetClient.dll</HintPath>
     </Reference>
@@ -67,7 +70,17 @@
     <Compile Include="ServerStucture\GameEnums.cs" />
     <Compile Include="ServerStucture\InventoryItem.cs" />
     <Compile Include="ServerStucture\NEntity.cs" />
+    <Compile Include="Table\GameTable.Buff.Info.cs" />
+    <Compile Include="Table\GameTable.Buff.Translate_Desc.cs" />
+    <Compile Include="Table\GameTable.Buff.Translate_Name.cs" />
+    <Compile Include="Table\GameTable.GameData.StartItemSetting.cs" />
+    <Compile Include="Table\GameTable.Item.Info.cs" />
+    <Compile Include="Table\GameTable.Item.Translate_Description.cs" />
+    <Compile Include="Table\GameTable.Item.Translate_Name.cs" />
+    <Compile Include="Table\GameTable.NPC.Info.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,16 +9,14 @@ namespace GameServer.Struct
         public int OwnerId;
         public int ItemIndex = 0;
         public int MaxUse = 0;
-        public int RemainUseCount = 0;
-#if UNITY_ENGINE
+        public int RemainUseCount = 0; 
         public GameTable.Item.Info info
         {
             get
             {
                 return GameTable.Item.Info.Get(this.ItemIndex);
             }
-        }
+        } 
     }
-#endif
-    }
+
 }

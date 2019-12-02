@@ -8,12 +8,15 @@ set excelPath=xlsx
 ::cs파일을 저장할 경로
 ::ex) c:\....\cs
 rem csPath
-set csPath=C:\Users\shlif\OneDrive\Documents\GitHub\MyDetectiveServer\GameServer\Table
+set csPath=..\PIDL\Table
 
 ::json파일을 저장할 경로
 ::ex) c:\....\json
 rem jsonPath
-set jsonPath=C:\Users\shlif\OneDrive\Documents\GitHub\MyDetectiveServer\GameServer\bin\Debug\TableDatas
+set jsonPath=..\GameServer\bin\Debug\TableDatas
 TB.exe %excelPath% %csPath% %jsonPath%
 
+echo off
+call AutoCopy_ToUnity.bat
+call AutoCopy_ServerSync.bat
 pause

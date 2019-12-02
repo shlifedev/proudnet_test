@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
-namespace GameTable.Buff
+namespace GameTable.NPC
 {
-    public class Translate_Description
+    public class Info
     {
 static bool isLoaded = false;
-	public static List<Translate_Description>       list       = new List<Translate_Description>();
-	public static Dictionary<int, Translate_Description> dict       = new Dictionary<int, Translate_Description>();
+	public static List<Info>       list       = new List<Info>();
+	public static Dictionary<int, Info> dict       = new Dictionary<int, Info>();
 	public int Index;
-	public string EN;
-	public string KR;
+	public string Name;
  
 
 #if !SERVER
@@ -20,9 +19,9 @@ static bool isLoaded = false;
         {
 if(isLoaded) return;
 isLoaded = true;
-          var textAsset = Resources.Load("TableDatas/GameTable.Buff.Translate_Description") as TextAsset;
+          var textAsset = Resources.Load("TableDatas/GameTable.NPC.Info") as TextAsset;
           var str = textAsset.text; 
-          var loadedList = JsonConvert.DeserializeObject<List<Translate_Description>>(str);
+          var loadedList = JsonConvert.DeserializeObject<List<Info>>(str);
           for(int i = 0; i < loadedList.Count; i++)
           {
             
@@ -40,8 +39,8 @@ isLoaded = true;
         { 
 if(isLoaded) return;
 isLoaded = true;
-          var str = File.ReadAllText("TableDatas/GameTable.Buff.Translate_Description" + ".txt");
-          var loadedList = JsonConvert.DeserializeObject<List<Translate_Description>>(str);
+          var str = File.ReadAllText("TableDatas/GameTable.NPC.Info" + ".txt");
+          var loadedList = JsonConvert.DeserializeObject<List<Info>>(str);
           for(int i = 0; i < loadedList.Count; i++)
           {
             
@@ -58,7 +57,7 @@ isLoaded = true;
 #endif
  
 
-        public static Translate_Description Get(int index)
+        public static Info Get(int index)
         {
            if(list.Count == 0) Load();
            bool exist = dict.ContainsKey(index);

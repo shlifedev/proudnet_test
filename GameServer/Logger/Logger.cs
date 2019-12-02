@@ -32,6 +32,19 @@ public class Logger
         Console.ForegroundColor = org;
     }
 
+    public static void Exception(Object obj, string value)
+    {
+        string title = title = obj.GetType().Name;
+        var org = Console.ForegroundColor;
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write($"{GetTime()}");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write($"[{title}] ");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write($"{value}\n");
+        Console.ForegroundColor = org;
+    }
+
     public static void Error(string title, string value)
     {
         var org = Console.ForegroundColor;

@@ -46,3 +46,5 @@ C:\Users\shlif\OneDrive\Documents\GitHub\MyDetectiveServer\PIDL\obj\Debug\PIDL.c
 C:\Users\shlif\OneDrive\Documents\GitHub\MyDetectiveServer\PIDL\obj\Debug\PIDL.csproj.CopyComplete
 C:\Users\shlif\OneDrive\Documents\GitHub\MyDetectiveServer\PIDL\obj\Debug\PIDL.dll
 C:\Users\shlif\OneDrive\Documents\GitHub\MyDetectiveServer\PIDL\obj\Debug\PIDL.pdb
+C:\Users\shlif\OneDrive\Documents\GitHub\MyDetectiveServer\PIDL\bin\Debug\Newtonsoft.Json.dll
+C:\Users\shlif\OneDrive\Documents\GitHub\MyDetectiveServer\PIDL\bin\Debug\Newtonsoft.Json.xml
