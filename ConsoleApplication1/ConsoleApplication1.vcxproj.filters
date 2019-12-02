@@ -18,18 +18,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C2C.PIDL">
+    <None Include="C2C.PIDL">
       <Filter>소스 파일\Common</Filter>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="C2S.PIDL">
+    </None>
+    <None Include="C2S.PIDL">
       <Filter>소스 파일\Common</Filter>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="S2C.PIDL">
+    </None>
+    <None Include="S2C.PIDL">
       <Filter>소스 파일\Common</Filter>
-    </CustomBuild>
+    </None>
   </ItemGroup>
 </Project>
