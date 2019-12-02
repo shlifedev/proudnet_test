@@ -13,15 +13,15 @@ static bool isLoaded = false;
 	public int Index;
 	public string Name;
 	public int MaxCount;
-	public int GivenBuff;
+	public List<int> GivenBuff;
 	public int Range;
 	public int MaxUse;
-	public bool Stackable;
+	public EItemType ItemType;
 	public bool Dropable;
 	public bool Tradeable;
 	public string SpritePath;
 	public bool IsKillerItem;
-	public bool Findable;
+	public EItemTargetType ItemTargetType;
  
 
 #if !SERVER

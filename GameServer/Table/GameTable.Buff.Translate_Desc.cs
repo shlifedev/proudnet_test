@@ -12,7 +12,7 @@ static bool isLoaded = false;
 	public static Dictionary<int, Translate_Desc> dict       = new Dictionary<int, Translate_Desc>();
 	public int Index;
 	public string Name;
-	public float BuffTime;
+	public string KR;
  
 
 #if !SERVER

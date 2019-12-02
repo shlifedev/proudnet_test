@@ -55,6 +55,12 @@ namespace GameServer
                     killerItems.Remove(pick);
                     GiveItem(player, pick);
                 }
+
+                var dobogi = (citizenItems.Find(x => x.ItemIndex == 112));
+                if(dobogi != null)
+                {
+                    GiveItem(player, dobogi);
+                }
                 Logger.Log(this, $"Give Item Player{player.hostID} => " + pickLog);
             }    
         }

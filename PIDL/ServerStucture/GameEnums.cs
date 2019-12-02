@@ -21,6 +21,27 @@ public enum GameStatus
     End
 
 }
+
+
+public enum EItemTargetType
+{
+    None,
+    SelfTarget,
+    NPCTarget,
+    PlayerTarget,
+    HumanTarget,
+    CorpseTarget,
+    InteriorTarget,
+
+}
+
+public enum EItemType
+{
+    None,
+    Kill,
+    CorpseStatus,
+    Note
+}
 public enum EBuffType
 {
     Blooding,

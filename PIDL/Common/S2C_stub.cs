@@ -85,8 +85,8 @@ public BeforeRmiInvocationDelegate BeforeRmiInvocation = delegate(Nettention.Pro
 		{ 
 			return false;
 		};
-		public delegate bool NotifyEntityBuffAddDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, int buffIndex);  
-		public NotifyEntityBuffAddDelegate NotifyEntityBuffAdd = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, int buffIndex)
+		public delegate bool NotifyEntityBuffAddDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, GameServer.Struct.NBuff buffData);  
+		public NotifyEntityBuffAddDelegate NotifyEntityBuffAdd = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, GameServer.Struct.NBuff buffData)
 		{ 
 			return false;
 		};
@@ -832,13 +832,13 @@ parameterString+=itemEntityId.ToString()+",";
         ctx.compressMode = pa.CompressMode;
 
         int entityId; MyMarshaler.Read(__msg,out entityId);	
-int buffIndex; MyMarshaler.Read(__msg,out buffIndex);	
+GameServer.Struct.NBuff buffData; MyMarshaler.Read(__msg,out buffData);	
 core.PostCheckReadMessage(__msg, RmiName_NotifyEntityBuffAdd);
         if(enableNotifyCallFromStub==true)
         {
         string parameterString = "";
         parameterString+=entityId.ToString()+",";
-parameterString+=buffIndex.ToString()+",";
+parameterString+=buffData.ToString()+",";
         NotifyCallFromStub(Common.NotifyEntityBuffAdd, RmiName_NotifyEntityBuffAdd,parameterString);
         }
 
@@ -855,7 +855,7 @@ parameterString+=buffIndex.ToString()+",";
         long t0 = Nettention.Proud.PreciseCurrentTime.GetTimeMs();
 
         // Call this method.
-        bool __ret =NotifyEntityBuffAdd (remote,ctx , entityId, buffIndex );
+        bool __ret =NotifyEntityBuffAdd (remote,ctx , entityId, buffData );
 
         if(__ret==false)
         {

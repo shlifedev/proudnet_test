@@ -9,9 +9,7 @@ namespace GameServer
     class Program
     {
         static void Main(string[] args)
-        {
-            GameTable.Buff.Info.Get(10001);
-
+        { 
             Server server = new Server(); 
         }
     }

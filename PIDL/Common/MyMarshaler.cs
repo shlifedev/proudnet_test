@@ -63,7 +63,7 @@ public class MyMarshaler : Nettention.Proud.Marshaler
         msg.Write(entity.count);
         for (int i = 0; i < entity.list.Count; i++)
         {
-            Write(msg, entity.list[i]); 
+            Write(msg, entity.list[i]);
         }
     }
     public static void Read(Nettention.Proud.Message msg, out GameServer.Struct.NEntityList entity)
@@ -72,10 +72,28 @@ public class MyMarshaler : Nettention.Proud.Marshaler
         msg.Read(out entity.count);
         for (int i = 0; i < entity.count; i++)
         {
-            var ent = new GameServer.Struct.NEntity(); 
-            Read(msg, out ent); 
+            var ent = new GameServer.Struct.NEntity();
+            Read(msg, out ent);
             entity.list.Add(ent);
         }
+    }
+ 
+    public static void Write(Nettention.Proud.Message msg, GameServer.Struct.NBuff buff)
+    {
+        msg.Write(buff.buffIndex);
+        msg.Write((int)buff.buffType);
+        msg.Write(buff.givenTime);
+        msg.Write(buff.endTIme); 
+    }
+    public static void Read(Nettention.Proud.Message msg, out GameServer.Struct.NBuff buff)
+    {
+        buff = new GameServer.Struct.NBuff();
+        int ebufftype = 0 ;
+        msg.Read(out buff.buffIndex);
+        msg.Read(out ebufftype);
+        buff.buffType = (EBuffType)ebufftype;
+        msg.Read(out buff.givenTime);
+        msg.Read(out buff.endTIme);
     }
 
 }

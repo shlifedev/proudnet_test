@@ -10,7 +10,7 @@ using Vector2 = UnityEngine.Vector2;
 using UnityEngine;
 namespace GameServer.Struct
 {
- 
+
 
     public class NEntityManager
     {
@@ -20,10 +20,35 @@ namespace GameServer.Struct
         }
         public GameRoom room;
         public List<NEntity> entitiList = new List<NEntity>();
-        public Dictionary<int, NEntity> entityMap = new Dictionary<int, NEntity>(); 
+        public Dictionary<int, NEntity> entityMap = new Dictionary<int, NEntity>();
         public List<NEntity> playerList = new List<NEntity>();
         public List<NEntity> npcList = new List<NEntity>();
-     
+
+        /// <summary>
+        /// 플레이어들의 인벤토리에서 아이템을 찾습니다.
+        /// </summary> 
+        public Item FindItem(int itemEId)
+        {
+            for (int i = 0; i < room.players.playerList.Count; i++)
+            {
+                var exist = room.players.playerList[i].inventory.itemMap.ContainsKey(itemEId);
+                if (exist)
+                {
+                    return room.players.playerList[i].inventory.itemMap[itemEId];
+                }
+            }
+            return null;
+        }
+        public NEntity FindPlayerEntity(int playerEID)
+        {
+            if (entityMap.ContainsKey(playerEID))
+            {
+                return entityMap[playerEID];
+            }
+
+            Console.WriteLine("cannot found player eid");
+            return null;
+        }
         public void AddEntity(int index, NEntity entity)
         {
             if (entityMap.ContainsKey(index) == false)
@@ -56,7 +81,7 @@ namespace GameServer.Struct
             createEntity.item.ItemIndex = itemIndex;
             createEntity.item.EntityId = createEntity.entityIndex;
             createEntity.item.MaxUse = itemInfo.MaxUse;
-            createEntity.item.RemainUseCount = itemInfo.MaxUse;  
+            createEntity.item.RemainUseCount = itemInfo.MaxUse;
             AddEntity(createEntity.entityIndex, createEntity);
             Logger.Log(this, $"Item {itemIndex} Create!");
             return createEntity;
@@ -78,7 +103,7 @@ namespace GameServer.Struct
             NEntity playerEntity = new NEntity();
             playerEntity.position = position;
             playerEntity.entityIndex = room.CreateIdentifier();
-            playerEntity.ownerHostID = (int)HID.HostID_Server; 
+            playerEntity.ownerHostID = (int)HID.HostID_Server;
             AddEntity(playerEntity.entityIndex, playerEntity);
             npcList.Add(playerEntity);
             Logger.Log(this, $"NPC {npcIndex} Create!");

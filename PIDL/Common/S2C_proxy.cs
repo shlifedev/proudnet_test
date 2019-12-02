@@ -369,14 +369,14 @@ MyMarshaler.Write(__msg, itemEntityId);
 	return RmiSend(remotes,rmiContext,__msg,
 		RmiName_NotifyPlayerItemUse, Common.NotifyPlayerItemUse);
 }
-public bool NotifyEntityBuffAdd(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, int buffIndex)
+public bool NotifyEntityBuffAdd(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int entityId, GameServer.Struct.NBuff buffData)
 {
 	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
 		__msg.SimplePacketMode = core.IsSimplePacketMode();
 		Nettention.Proud.RmiID __msgid= Common.NotifyEntityBuffAdd;
 		__msg.Write(__msgid);
 		MyMarshaler.Write(__msg, entityId);
-		MyMarshaler.Write(__msg, buffIndex);
+		MyMarshaler.Write(__msg, buffData);
 		
 	Nettention.Proud.HostID[] __list = new Nettention.Proud.HostID[1];
 	__list[0] = remote;
@@ -385,14 +385,14 @@ public bool NotifyEntityBuffAdd(Nettention.Proud.HostID remote,Nettention.Proud.
 		RmiName_NotifyEntityBuffAdd, Common.NotifyEntityBuffAdd);
 }
 
-public bool NotifyEntityBuffAdd(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext, int entityId, int buffIndex)
+public bool NotifyEntityBuffAdd(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext, int entityId, GameServer.Struct.NBuff buffData)
 {
 	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
 __msg.SimplePacketMode = core.IsSimplePacketMode();
 Nettention.Proud.RmiID __msgid= Common.NotifyEntityBuffAdd;
 __msg.Write(__msgid);
 MyMarshaler.Write(__msg, entityId);
-MyMarshaler.Write(__msg, buffIndex);
+MyMarshaler.Write(__msg, buffData);
 		
 	return RmiSend(remotes,rmiContext,__msg,
 		RmiName_NotifyEntityBuffAdd, Common.NotifyEntityBuffAdd);
