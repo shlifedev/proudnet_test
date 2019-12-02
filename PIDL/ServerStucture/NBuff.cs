@@ -12,9 +12,8 @@ namespace GameServer.Struct
         public int buffIndex; 
         public EBuffType buffType;
         public float givenTime;
-        public float endTIme;
+        public float endTIme; 
 
-       
     }
 
 }

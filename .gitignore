@@ -31,3 +31,6 @@
 #*.exe
 #*.out
 #*.app
+Table/xlsx/~$GameData.xlsx
+Table/xlsx/~$Item.xlsx
+Table/xlsx/~$NPC.xlsx

@@ -12,7 +12,9 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace GameServer
 {
-    
+    /// <summary>
+    /// 현재 게임 서버룸
+    /// </summary>
     public class GameRoom
     {
 
@@ -24,12 +26,13 @@ namespace GameServer
             this.gSrv = gameServer;
             this.srv.room = this;
             itemExecuteManager = new ItemExecuteDispatcher.ItemExecuteManager(this);
+            itemExecuteManager.InitializeExecuteList();
+            srv.c2sStub.ReqUseItem += itemExecuteManager.Execute;
             players = new Players(); 
             players.room = this; 
             entityManager = new NEntityManager(this);
             //임시로 스텁처리
-            srv.c2sStub.ReqMove += OnReqEnityMove;
-            srv.c2sStub.ReqUseItem += players.OnStubItemUseReq;
+            srv.c2sStub.ReqMove += OnReqEnityMove; 
             srv.StartServer();
             gameManager = new GameManager(this); 
             Logger.Log(this, "GameRoom Setting Succesfully");

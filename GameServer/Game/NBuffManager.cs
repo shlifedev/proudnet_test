@@ -9,6 +9,16 @@ namespace GameServer
 
     public class NNBuffManager
     {
+        public static NBuff CreateBuff(int buffIndex, GameRoom room)
+        {
+            return new NBuff()
+            {
+                buffIndex = buffIndex,
+                buffType = GameTable.Buff.Info.Get(buffIndex).BuffType,
+                givenTime = room.srv.srv.GetTimeMs(),
+                endTIme = -1 
+            };
+        }
         public Player owner;
         public System.Action<NBuff> onNBuffAdded; 
         public System.Action<NBuff> onNBuffAdd;

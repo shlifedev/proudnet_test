@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;SERVER</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SERVER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>2</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
