@@ -1,4 +1,5 @@
 # My DetectiveGame Server
+My DetectiveGame DedicateServer.
 ## Build
 
 run Tables/TableGenerate.bat 
