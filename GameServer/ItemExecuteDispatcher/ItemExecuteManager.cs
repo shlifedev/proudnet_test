@@ -59,9 +59,7 @@ namespace GameServer.ItemExecuteDispatcher
                 Logger.Exception(this, e.Message);
                 Logger.Exception(this, $"playerEID :{playerEID}  targetID :{targetID} itemEntityID :{itemEntityID}");
                 return false;
-            }
-
-            return true;
+            } 
         }
     }
 }
