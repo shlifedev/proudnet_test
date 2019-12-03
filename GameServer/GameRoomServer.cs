@@ -82,6 +82,21 @@ namespace GameServer
                     Console.WriteLine(room.entityManager.playerList[i].ownerHostID + "registed!");
                 }
             }
+
+            if(v.Contains("NPC.BuffList"))
+            {
+                Console.Write("NPC EID 번호 입력:");
+                var npcIndex = Console.ReadLine();
+                if(room.entityManager.entityMap.ContainsKey(int.Parse(npcIndex)))
+                {
+                    var data = room.entityManager.entityMap[int.Parse(npcIndex)];
+                    Console.WriteLine($"NPC {data.entityIndex} BuffList");
+                    foreach(var buff in (data as NNPCEntity).buffManager.NBuffList)
+                    {
+                        Console.WriteLine(GameTable.Buff.Translate_Name.Get(buff.buffIndex).KR);
+                    }
+                }
+            }
         }
         public void StartServer()
         {

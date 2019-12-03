@@ -28,7 +28,7 @@ namespace GameServer.ItemExecuteDispatcher
                     {
                         return true;
                     }
-                } 
+                }
             }
             return false;
         }
@@ -37,29 +37,12 @@ namespace GameServer.ItemExecuteDispatcher
             if (Executeable(usePlayer, targetEntity, useItem))
             {
                 useItem.RemainUseCount -= 1;
-                if (useItem.RemainUseCount <= 0)
-                {
-                    Logger.Log(this, "need impl use item remove processing");
-                }
-
-                //엔피시에게 버프적용
-                if (GameTable.Item.Info.Get(useItem.ItemIndex).IsKillerItem)
-                {
-                    Room.srv.s2cProxy.NotifyPlayerItemUse(usePlayer.hostID, RMI.ReliableSend, targetEntity.entityIndex, useItem.ItemIndex); 
-                    this.executeManager.room.players.playerList.ForEach(x =>
-                    {
-                        foreach (var buff in useItem.info.GivenBuff)
-                        {
-                            GameServer.Struct.NBuff nbuff = NNBuffManager.CreateBuff(buff, executeManager.room); 
-                            Logger.Log(this, $"NotifyEntityBuffAdd => {x.hostID} (target {targetEntity.entityIndex})");
-                            Room.srv.s2cProxy.NotifyEntityBuffAdd(x.hostID, RMI.ReliableSend, targetEntity.entityIndex, nbuff);
-                        }
-                    }); 
-                }
+                NotifyItemUse(usePlayer, targetEntity, useItem);
+                NotifyPlayersNPCBuffGive(useItem, targetEntity);
             }
             else
             {
-                
+
             }
         }
     }

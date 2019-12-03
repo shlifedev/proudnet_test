@@ -12,8 +12,22 @@ namespace GameServer.Struct
         public int buffIndex; 
         public EBuffType buffType;
         public float givenTime;
-        public float endTIme; 
+        public float endTIme;
 
+        public GameTable.Buff.Info info
+        {
+            get
+            {
+                return GameTable.Buff.Info.Get(buffIndex);
+            }
+        }
+        public GameTable.Buff.Translate_Name tranlateName
+        {
+            get
+            {
+                return GameTable.Buff.Translate_Name.Get(buffIndex);
+            }
+        }
     }
 
 }

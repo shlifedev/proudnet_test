@@ -16,11 +16,19 @@ namespace GameServer.Struct
     }
 
 
-    public class NPlayerEntity : NEntity
+    public class NHumanEntity : NEntity
+    {
+        public NBuffManager buffManager = new NBuffManager();
+    }
+    public class NPlayerEntity : NHumanEntity
     { 
 
     }
 
+    public class NNPCEntity : NHumanEntity
+    {
+
+    }
     public class NItemEntity : NEntity
     {
         public int itemIndex;

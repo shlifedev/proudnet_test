@@ -56,7 +56,7 @@ namespace GameServer
                     GiveItem(player, pick);
                 }
 
-                var dobogi = (citizenItems.Find(x => x.ItemIndex == 112));
+                var dobogi = (citizenItems.Find(x => x.ItemIndex == 130));
                 if(dobogi != null)
                 {
                     GiveItem(player, dobogi);

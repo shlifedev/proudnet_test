@@ -7,24 +7,22 @@ using GameServer.Struct;
 namespace GameServer
 {
 
-    public class NNBuffManager
+    public class NBuffManager
     {
-        public static NBuff CreateBuff(int buffIndex, GameRoom room)
+        public static NBuff CreateBuff(int buffIndex, float createTime)
         {
             return new NBuff()
             {
                 buffIndex = buffIndex,
                 buffType = GameTable.Buff.Info.Get(buffIndex).BuffType,
-                givenTime = room.srv.srv.GetTimeMs(),
-                endTIme = -1 
+                givenTime = createTime,
+                endTIme = -1
             };
         }
-        public Player owner;
-        public System.Action<NBuff> onNBuffAdded; 
+        public System.Action<NBuff> onNBuffAdded;
         public System.Action<NBuff> onNBuffAdd;
         public System.Action<NBuff> onNBuffRemoved;
         public System.Action<NBuff> onNBuffRemove;
-
         public List<NBuff> NBuffList = new List<NBuff>();
         public bool IsHasNBuff(EBuffType buffType)
         {
@@ -38,14 +36,8 @@ namespace GameServer
             return NBuff != null;
         }
 
-  
-        public void AddNBuff(int buffIndex)
+        public void AddNBuff(NBuff buff)
         {
-            NBuff buff = new NBuff();
-            buff.givenTime = owner.room.srv.srv.GetTimeMs();
-            //buff.buffType = GameTable.Buff.Info.Get(buffIndex);
-
-           // buff.endTIme = owner.room.srv.srv.GetTimeMs();
             onNBuffAdd?.Invoke(buff);
             if (!IsHasNBuff(buff.buffType))
             {

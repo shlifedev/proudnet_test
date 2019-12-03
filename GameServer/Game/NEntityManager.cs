@@ -98,9 +98,9 @@ namespace GameServer.Struct
             return playerEntity;
         }
 
-        public NEntity CreateNPCEntity(int npcIndex, Vector2 position)
+        public NNPCEntity CreateNPCEntity(int npcIndex, Vector2 position)
         {
-            NEntity playerEntity = new NEntity();
+            NNPCEntity playerEntity = new NNPCEntity();
             playerEntity.position = position;
             playerEntity.entityIndex = room.CreateIdentifier();
             playerEntity.ownerHostID = (int)HID.HostID_Server;

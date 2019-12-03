@@ -12,6 +12,8 @@ static bool isLoaded = false;
 	public static Dictionary<int, Info> dict       = new Dictionary<int, Info>();
 	public int Index;
 	public string Name;
+	public string Animator;
+	public bool Killable;
  
 
 #if !SERVER

@@ -17,15 +17,13 @@ namespace GameServer
             this.hostID = hid;
             this.inventory = new PlayerInventory();
             this.inventory.player = this;
-            this.inventory.inventoryOwnerID = hostID;
-            this.buffManager = new NNBuffManager();
+            this.inventory.inventoryOwnerID = hostID; 
             this.room = room; 
         }
         public Struct.NEntity playerEntity = null;
         public HID hostID;
         public GameRoom room;
-        public PlayerInventory inventory;
-        public NNBuffManager buffManager;
+        public PlayerInventory inventory; 
         public bool IsKiller = false;
         public int job = 0;
 

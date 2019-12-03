@@ -3,23 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
-namespace GameTable.Buff
+namespace GameTable.NPC
 {
-    public class Info
+    public class Translate_Name
     {
 static bool isLoaded = false;
-	public static List<Info>       list       = new List<Info>();
-	public static Dictionary<int, Info> dict       = new Dictionary<int, Info>();
+	public static List<Translate_Name>       list       = new List<Translate_Name>();
+	public static Dictionary<int, Translate_Name> dict       = new Dictionary<int, Translate_Name>();
 	public int Index;
 	public string Name;
-	public float BuffTime;
-	public int EndNextBuff;
-	public bool Removeable;
-	public bool IsPublic;
-	public bool Stackable;
-	public EBuffType BuffType;
-	public bool Tradeable;
-	public string SpritePath;
+	public string EN;
+	public bool KR;
  
 
 #if !SERVER
@@ -27,9 +21,9 @@ static bool isLoaded = false;
         {
 if(isLoaded) return;
 isLoaded = true;
-          var textAsset = Resources.Load("TableDatas/GameTable.Buff.Info") as TextAsset;
+          var textAsset = Resources.Load("TableDatas/GameTable.NPC.Translate_Name") as TextAsset;
           var str = textAsset.text; 
-          var loadedList = JsonConvert.DeserializeObject<List<Info>>(str);
+          var loadedList = JsonConvert.DeserializeObject<List<Translate_Name>>(str);
           for(int i = 0; i < loadedList.Count; i++)
           {
             
@@ -47,8 +41,8 @@ isLoaded = true;
         { 
 if(isLoaded) return;
 isLoaded = true;
-          var str = File.ReadAllText("TableDatas/GameTable.Buff.Info" + ".txt");
-          var loadedList = JsonConvert.DeserializeObject<List<Info>>(str);
+          var str = File.ReadAllText("TableDatas/GameTable.NPC.Translate_Name" + ".txt");
+          var loadedList = JsonConvert.DeserializeObject<List<Translate_Name>>(str);
           for(int i = 0; i < loadedList.Count; i++)
           {
             
@@ -65,7 +59,7 @@ isLoaded = true;
 #endif
  
 
-        public static Info Get(int index)
+        public static Translate_Name Get(int index)
         {
            if(list.Count == 0) Load();
            bool exist = dict.ContainsKey(index);

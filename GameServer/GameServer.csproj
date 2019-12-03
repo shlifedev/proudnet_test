@@ -66,7 +66,6 @@
     <Compile Include="Game\GameManager.cs" />
     <Compile Include="Game\GameInitializer.cs" />
     <Compile Include="Game\GameRule.cs" />
-    <Compile Include="Game\NBuffManager.cs" />
     <Compile Include="Game\PlayerInventory.cs" />
     <Compile Include="GameRoom.cs" />
     <Compile Include="GameServer.cs" />
@@ -74,8 +73,9 @@
     <Compile Include="Game\Players.cs" />
     <Compile Include="ItemExecuteDispatcher\IItemCommand.cs" />
     <Compile Include="ItemExecuteDispatcher\ItemCommand.cs" />
+    <Compile Include="ItemExecuteDispatcher\ItemCorpseStatus.cs" />
     <Compile Include="ItemExecuteDispatcher\ItemExecuteManager.cs" />
-    <Compile Include="ItemExecuteDispatcher\NPCKillItem.cs" />
+    <Compile Include="ItemExecuteDispatcher\ItemNpcKillableType.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

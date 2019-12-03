@@ -7,16 +7,33 @@ using GameServer.Struct;
 
 namespace GameServer.ItemExecuteDispatcher
 {
-    class ItemCorpseStatus : ItemCommand
+    public class ItemCorpseStatus : ItemCommand
     {
+        public ItemCorpseStatus(ItemExecuteManager executer) : base(executer)
+        {
+            this.executeManager = executer;
+        }
+
         public override void Execute(Player usePlayer, NEntity targetEntity, Item useItem)
         {
-            throw new NotImplementedException();
+            if (Executeable(usePlayer, targetEntity, useItem))
+            {
+                NotifyItemUse(usePlayer, targetEntity, useItem);
+            }
         }
 
         public override bool Executeable(Player usePlayer, NEntity targetEntity, Item useItem)
         {
-            throw new NotImplementedException();
+            if (useItem.RemainUseCount > 0)
+            {
+                var human = targetEntity as NHumanEntity;
+                var dieStatus = human.buffManager.IsDie();
+                if (dieStatus)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

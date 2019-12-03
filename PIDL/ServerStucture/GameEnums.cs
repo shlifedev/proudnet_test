@@ -38,9 +38,38 @@ public enum EItemTargetType
 public enum EItemType
 {
     None,
-    Kill,
+    Knife,
+    Awl,
+    Hammer,
+    BaseballBat,
+    ElectricSaw,
+    Revolver,
+    Silencer,
+    Cyanide,
+    RecordTapeMan,
+    RecordTapeWoman,
+    CollectCorpse,
+    MagnifyingGlass,
+    NoteBook,
+    PoisonCheck,
+    Observe,
+    MedKit,
+    SkinBelt,
+    Formalin,
+    Pencil,
+    Knuckles,
+    PosionNeedle,
+    MetalThread,
+    SkinGlove,
+    EvidenceModify,
+    Pen,
+    Needle,
+    FingerPirntChecker,
+    BloodTypeChecker,
+    SnowGlove,
     CorpseStatus,
-    Note
+    Kill,
+    Max
 }
 public enum EBuffType
 {

@@ -23,19 +23,38 @@ namespace GameServer.ItemExecuteDispatcher
         public void InitializeExecuteList()
         {
             executeMap.Add(EItemType.Kill, new ItemNpcKillableType(this));
-        } 
+            executeMap.Add(EItemType.CorpseStatus, new ItemCorpseStatus(this));
+        }
+
+        public bool Assert(int playerEID, int targetID, int itemEntityID)
+        {
+            if (room.players.GetPlayerByEntityId(playerEID) == null)
+            {
+                Console.WriteLine("player eid is null" + playerEID);
+            }
+            if (room.entityManager.entityMap.ContainsKey(targetID) == false)
+            {
+                Console.WriteLine("targetID eid is null" + targetID);
+            }
+            if (room.players.GetPlayerByEntityId(playerEID).inventory.itemMap.ContainsKey(itemEntityID) == false)
+            {
+                Console.WriteLine("player inv item eid is null" + itemEntityID);
+            }
+            return true;
+        }
         public bool Execute(HID id, RMI rmi, int playerEID, int targetID, int itemEntityID)
         {
             try
             {
+                Assert(playerEID, targetID, itemEntityID);
                 var player = room.players.GetPlayerByEntityId(playerEID);
                 var target = room.entityManager.entityMap[targetID];
-                var usedItem = player.inventory.itemMap[itemEntityID]; 
+                var usedItem = player.inventory.itemMap[itemEntityID];
                 var itemdata = usedItem.info;
                 executeMap[itemdata.ItemType].Execute(player, target, usedItem);
                 return true;
             }
-            catch(System.Exception e)
+            catch (System.Exception e)
             {
                 Logger.Exception(this, e.Message);
                 Logger.Exception(this, $"playerEID :{playerEID}  targetID :{targetID} itemEntityID :{itemEntityID}");
@@ -46,4 +65,3 @@ namespace GameServer.ItemExecuteDispatcher
         }
     }
 }
-    
