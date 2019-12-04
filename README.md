@@ -4,10 +4,11 @@ My DetectiveGame DedicateServer.
 
 run Tables/TableGenerate.bat 
 
-## Settings
- * require Nettention-PIDL Compiler 
- * require Tables/TableGenerate.bat path modify
- * require Tables/AutoCopy_ToUnity.bat path modify
- * require Tables/AutoCopy_ServerSync.bat path modify
+## Setup
+ * set-up Nettention-PIDL Compiler 
+ * set Tables/TableGenerate.bat output&input path 
+ * set Tables/AutoCopy_ToUnity.bat output path 
+ * set Tables/AutoCopy_ServerSync.bat output path 
  * VisualStudio 2019
+ * require unityengine 2020.3
  
