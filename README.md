@@ -12,3 +12,5 @@ run Tables/TableGenerate.bat
  * VisualStudio 2019
  * require unityengine 2020.3
  
+## Client
+https://github.com/shlifedev/test-detective-client-commit
