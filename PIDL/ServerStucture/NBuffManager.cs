@@ -16,7 +16,8 @@ namespace GameServer
                 buffIndex = buffIndex,
                 buffType = GameTable.Buff.Info.Get(buffIndex).BuffType,
                 givenTime = createTime,
-                endTIme = -1
+                endTIme = -1,
+                remainTime = GameTable.Buff.Info.Get(buffIndex).BuffTime
             };
         }
         public System.Action<NBuff> onNBuffAdded;
@@ -24,6 +25,8 @@ namespace GameServer
         public System.Action<NBuff> onNBuffRemoved;
         public System.Action<NBuff> onNBuffRemove;
         public List<NBuff> NBuffList = new List<NBuff>();
+        public List<NBuff> RemainTimeManagerBuffs = new List<NBuff>();
+
         public bool IsHasNBuff(EBuffType buffType)
         {
             var NBuff = NBuffList.Find(x => x.buffType == buffType);
@@ -42,6 +45,10 @@ namespace GameServer
             if (!IsHasNBuff(buff.buffType))
             {
                 this.NBuffList.Add(buff);
+                if (buff.remainTime != -1)
+                {
+                    RemainTimeManagerBuffs.Add(buff);
+                }
             }
             onNBuffAdded?.Invoke(buff);
         }
@@ -51,6 +58,19 @@ namespace GameServer
             if (IsHasNBuff(NBuff.buffType))
             {
                 this.NBuffList.Remove(NBuff);
+                if (RemainTimeManagerBuffs.Contains(NBuff))
+                    this.RemainTimeManagerBuffs.Remove(NBuff);
+            }
+            onNBuffRemoved?.Invoke(NBuff);
+        }
+
+        public void RemoveRemainTimeNBuff(NBuff NBuff)
+        {
+            onNBuffRemove?.Invoke(NBuff);
+            if (IsHasNBuff(NBuff.buffType))
+            {
+                if (RemainTimeManagerBuffs.Contains(NBuff))
+                    this.RemainTimeManagerBuffs.Remove(NBuff);
             }
             onNBuffRemoved?.Invoke(NBuff);
         }

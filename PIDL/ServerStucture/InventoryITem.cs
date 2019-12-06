@@ -16,7 +16,23 @@ namespace GameServer.Struct
             {
                 return GameTable.Item.Info.Get(this.ItemIndex);
             }
-        } 
+        }
+
+
+        public static Item Default
+        {
+            get
+            {
+                if (defaultItem == null) defaultItem = new Item();
+                if (defaultItem != null)
+                {
+                    return defaultItem;
+                }
+                return null;
+            }
+        }
+        private static Item defaultItem;
+
     }
 
 }

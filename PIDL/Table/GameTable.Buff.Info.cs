@@ -13,7 +13,7 @@ static bool isLoaded = false;
 	public int Index;
 	public string Name;
 	public float BuffTime;
-	public int EndNextBuff;
+	public List<int> EndNextBuff;
 	public bool Removeable;
 	public bool IsPublic;
 	public bool Stackable;

@@ -74,10 +74,13 @@
     <Compile Include="Table\GameTable.Buff.Info.cs" />
     <Compile Include="Table\GameTable.Buff.Translate_Desc.cs" />
     <Compile Include="Table\GameTable.Buff.Translate_Name.cs" />
+    <Compile Include="Table\GameTable.GameData.NPCSettings.cs" />
     <Compile Include="Table\GameTable.GameData.StartItemSetting.cs" />
     <Compile Include="Table\GameTable.Item.Info.cs" />
     <Compile Include="Table\GameTable.Item.Translate_Description.cs" />
     <Compile Include="Table\GameTable.Item.Translate_Name.cs" />
+    <Compile Include="Table\GameTable.Job.Info.cs" />
+    <Compile Include="Table\GameTable.Job.Translate_Name.cs" />
     <Compile Include="Table\GameTable.NPC.Info.cs" />
     <Compile Include="Table\GameTable.NPC.Translate_Desc.cs" />
     <Compile Include="Table\GameTable.NPC.Translate_Name.cs" />

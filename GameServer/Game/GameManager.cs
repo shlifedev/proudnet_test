@@ -31,6 +31,24 @@ namespace GameServer
             Logger.Log(this, $"Player{player.hostID} Is a Killer Now!");
 
         }
+
+        public void SetRandomJob()
+        {
+            Random random = new Random();
+             
+            Logger.Log(this, "SettingPlayerJob..");
+            GameTable.Job.Info.Load(); 
+            var jobList =  new List<GameTable.Job.Info>();
+            GameTable.Job.Info.list.ForEach(x => jobList.Add(x));
+            /* TODO :: 임시처리 */
+            jobList.Remove(jobList.Find(x => x.Job == EJob.Unused1));
+            jobList.Remove(jobList.Find(x => x.Job == EJob.Unused2)); 
+            for (int i = 0; i < room.players.playerList.Count; i++)
+            {
+                room.players.playerList[i].job = jobList[random.Next(0,jobList.Count)].Job;
+                Logger.Log(this, $"Player { room.players.playerList[i].hostID} Job Now => { room.players.playerList[i].job}");
+            }
+        }
         public void SettingPlayerStartItems()
         {
             Logger.Log(this, "SettingPlayerStartItems... ");
@@ -57,10 +75,9 @@ namespace GameServer
                 }
 
                 var dobogi = (citizenItems.Find(x => x.ItemIndex == 130));
-                if(dobogi != null)
-                {
+                var porem = (killerItems.Find(x => x.ItemIndex == 118)); 
                     GiveItem(player, dobogi);
-                }
+                    GiveItem(player, porem); 
                 Logger.Log(this, $"Give Item Player{player.hostID} => " + pickLog);
             }    
         }

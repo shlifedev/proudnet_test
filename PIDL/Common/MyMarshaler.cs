@@ -41,6 +41,26 @@ public class MyMarshaler : Nettention.Proud.Marshaler
         msg.Read(out entity.position.z);
     }
 
+
+
+    public static void Write(Nettention.Proud.Message msg, GameServer.Struct.NNPCEntity entity)
+    {
+        msg.Write(entity.ownerHostID);
+        msg.Write(entity.entityIndex);
+        msg.Write(entity.position.x);
+        msg.Write(entity.position.y);
+        msg.Write(entity.position.z); 
+    }
+    public static void Read(Nettention.Proud.Message msg, out GameServer.Struct.NNPCEntity entity)
+    {
+        entity = new GameServer.Struct.NNPCEntity();
+        msg.Read(out entity.ownerHostID);
+        msg.Read(out entity.entityIndex);
+        msg.Read(out entity.position.x);
+        msg.Read(out entity.position.y);
+        msg.Read(out entity.position.z);
+    }
+
     public static void Write(Nettention.Proud.Message msg, GameServer.Struct.Item item)
     {
         msg.Write(item.EntityId);
@@ -77,7 +97,27 @@ public class MyMarshaler : Nettention.Proud.Marshaler
             entity.list.Add(ent);
         }
     }
- 
+
+    public static void Write(Nettention.Proud.Message msg, GameServer.Struct.NNPCEntityList entity)
+    {
+        msg.Write(entity.count);
+        for (int i = 0; i < entity.list.Count; i++)
+        {
+            Write(msg, entity.list[i]);
+        }
+    }
+    public static void Read(Nettention.Proud.Message msg, out GameServer.Struct.NNPCEntityList entity)
+    {
+        entity = new GameServer.Struct.NNPCEntityList();
+        msg.Read(out entity.count);
+        for (int i = 0; i < entity.count; i++)
+        {
+            var ent = new GameServer.Struct.NNPCEntity();
+            Read(msg, out ent);
+            entity.list.Add(ent);
+        }
+    }
+
     public static void Write(Nettention.Proud.Message msg, GameServer.Struct.NBuff buff)
     {
         msg.Write(buff.buffIndex);

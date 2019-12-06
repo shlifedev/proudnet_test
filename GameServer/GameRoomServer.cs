@@ -69,34 +69,26 @@ namespace GameServer
                 room.StartGame();
             }
 
-            if (v == "EntityManager.Debug")
+            if (v == "EntityList")
             {
-                Console.WriteLine("entity::");
+                Console.WriteLine("\tEID\tHID");
                 for (int i = 0; i < room.entityManager.entitiList.Count; i++)
                 {
-                    Console.WriteLine(room.entityManager.entitiList[i].entityIndex + "registed!");
-                }
-                Console.WriteLine("playerlist::");
-                for (int i = 0; i < room.entityManager.playerList.Count; i++)
-                {
-                    Console.WriteLine(room.entityManager.playerList[i].ownerHostID + "registed!");
+                    var entity = room.entityManager.entitiList[i];
+                    Console.WriteLine($"\t{entity.entityIndex}\t{entity.ownerHostID}");
                 }
             }
-
-            if(v.Contains("NPC.BuffList"))
+            if (v.Contains("PlayerList"))
             {
-                Console.Write("NPC EID 번호 입력:");
-                var npcIndex = Console.ReadLine();
-                if(room.entityManager.entityMap.ContainsKey(int.Parse(npcIndex)))
+                Console.WriteLine($"\tHID\tEID\tJob");
+                foreach (var data in this.room.players.playerList)
                 {
-                    var data = room.entityManager.entityMap[int.Parse(npcIndex)];
-                    Console.WriteLine($"NPC {data.entityIndex} BuffList");
-                    foreach(var buff in (data as NNPCEntity).buffManager.NBuffList)
-                    {
-                        Console.WriteLine(GameTable.Buff.Translate_Name.Get(buff.buffIndex).KR);
-                    }
+                    Console.WriteLine($"\t{data.hostID}\t{data.playerEntity.entityIndex}\t{data.playerEntity}");
                 }
-            }
+            } 
+
+
+
         }
         public void StartServer()
         {
@@ -105,9 +97,8 @@ namespace GameServer
             InitStub();
             StartServerParameter ssp = new StartServerParameter();
             ssp.tcpPorts.Add(Vars.m_serverPort);
+            ssp.timerCallbackIntervalMs = 100;
             ssp.protocolVersion = new Nettention.Proud.Guid(Vars.m_Version);
-
-
             //서버시작
             try
             {

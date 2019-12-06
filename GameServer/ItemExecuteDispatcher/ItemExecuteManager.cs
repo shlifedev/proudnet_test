@@ -22,7 +22,25 @@ namespace GameServer.ItemExecuteDispatcher
 
         public void InitializeExecuteList()
         {
-            executeMap.Add(EItemType.Kill, new ItemNpcKillableType(this));
+            //일반적인 살인아이템
+            executeMap.Add(EItemType.Knife, new ItemNpcKillableType(this));
+            executeMap.Add(EItemType.Awl, new ItemNpcKillableType(this));
+            executeMap.Add(EItemType.Hammer, new ItemNpcKillableType(this));
+            executeMap.Add(EItemType.BaseballBat, new ItemNpcKillableType(this));
+            executeMap.Add(EItemType.ElectricSaw, new ItemNpcKillableType(this));
+            executeMap.Add(EItemType.Revolver, new ItemNpcKillableType(this)); 
+            executeMap.Add(EItemType.Cyanide, new ItemNpcKillableType(this)); 
+            executeMap.Add(EItemType.SkinBelt, new ItemNpcKillableType(this));
+            executeMap.Add(EItemType.Formalin, new ItemNpcKillableType(this));
+            executeMap.Add(EItemType.Pencil, new ItemNpcKillableType(this));
+            executeMap.Add(EItemType.Knuckles, new ItemNpcKillableType(this));
+            executeMap.Add(EItemType.PosionNeedle, new ItemNpcKillableType(this));
+            executeMap.Add(EItemType.MetalThread, new ItemNpcKillableType(this));
+            executeMap.Add(EItemType.SkinGlove, new ItemNpcKillableType(this));
+            executeMap.Add(EItemType.Pen, new ItemNpcKillableType(this));
+
+
+            //시체수거
             executeMap.Add(EItemType.CorpseStatus, new ItemCorpseStatus(this));
         }
 
@@ -51,13 +69,22 @@ namespace GameServer.ItemExecuteDispatcher
                 var target = room.entityManager.entityMap[targetID];
                 var usedItem = player.inventory.itemMap[itemEntityID];
                 var itemdata = usedItem.info;
-                executeMap[itemdata.ItemType].Execute(player, target, usedItem);
+
+                if (executeMap.ContainsKey(itemdata.ItemType))
+                {
+                    executeMap[itemdata.ItemType].Execute(player, target, usedItem);
+                }
+                else
+                { 
+                    room.srv.s2cProxy.NotifyServerMessage(player.hostID, RMI.ReliableSend, $"sorry item ({usedItem.ItemIndex}) no regist server {itemdata.ItemType}");
+                }
                 return true;
             }
             catch (System.Exception e)
             {
                 Logger.Exception(this, e.Message);
                 Logger.Exception(this, $"playerEID :{playerEID}  targetID :{targetID} itemEntityID :{itemEntityID}");
+        
                 return false;
             } 
         }

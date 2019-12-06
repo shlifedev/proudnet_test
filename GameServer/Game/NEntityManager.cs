@@ -22,7 +22,7 @@ namespace GameServer.Struct
         public List<NEntity> entitiList = new List<NEntity>();
         public Dictionary<int, NEntity> entityMap = new Dictionary<int, NEntity>();
         public List<NEntity> playerList = new List<NEntity>();
-        public List<NEntity> npcList = new List<NEntity>();
+        public List<NNPCEntity> npcList = new List<NNPCEntity>();
 
         /// <summary>
         /// 플레이어들의 인벤토리에서 아이템을 찾습니다.
@@ -67,7 +67,7 @@ namespace GameServer.Struct
                 entityMap.Remove(index);
             }
         }
-
+        
 
         public NItemEntity CreateItemEntity(int itemIndex, Vector2 position)
         {
@@ -86,9 +86,9 @@ namespace GameServer.Struct
             Logger.Log(this, $"Item {itemIndex} Create!");
             return createEntity;
         }
-        public NEntity CreatePlayerEntity(Vector2 position, HID ownerID)
+        public NHumanEntity CreatePlayerEntity(Vector2 position, HID ownerID)
         {
-            NEntity playerEntity = new NEntity();
+            NHumanEntity playerEntity = new NHumanEntity();
             playerEntity.position = position;
             playerEntity.entityIndex = room.CreateIdentifier();
             playerEntity.ownerHostID = (int)ownerID;
@@ -98,6 +98,7 @@ namespace GameServer.Struct
             return playerEntity;
         }
 
+       
         public NNPCEntity CreateNPCEntity(int npcIndex, Vector2 position)
         {
             NNPCEntity playerEntity = new NNPCEntity();

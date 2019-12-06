@@ -15,17 +15,17 @@ namespace GameTestVirtualClient
     class Program
     {
       
-        public int count = 5;
+        public static int count = 5;
         static void Main(string[] args)
         {
             List<NetClient> clients = new List<NetClient>();
-            for(int i = 0; i < 5; i++)
+            for(int i = 0; i < count; i++)
             {
                 NetClient client = new NetClient();
                 Nettention.Proud.NetConnectionParam param = new Nettention.Proud.NetConnectionParam();
                 param.protocolVersion.Set(Vars.m_Version);
                 param.serverPort = (ushort)Vars.m_serverPort;
-                param.serverIP = "121.140.182.234";
+                param.serverIP = "121.140.182.71";
                 client.Connect(param);
                 client.JoinServerCompleteHandler = (errironfo, rply) => { 
                 };

@@ -4,9 +4,15 @@ namespace GameServer.Struct
 {
 
     public class NEntityList
-    { 
+    {
         public int count = 0;
         public List<NEntity> list = new List<NEntity>();
+    }
+
+    public class NNPCEntityList
+    {
+        public int count = 0;
+        public List<NNPCEntity> list = new List<NNPCEntity>();
     }
     public class NEntity
     {
@@ -22,7 +28,7 @@ namespace GameServer.Struct
     }
     public class NPlayerEntity : NHumanEntity
     { 
-
+        
     }
 
     public class NNPCEntity : NHumanEntity

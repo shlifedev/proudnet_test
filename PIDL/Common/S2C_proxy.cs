@@ -121,6 +121,32 @@ MyMarshaler.Write(__msg, msg);
 	return RmiSend(remotes,rmiContext,__msg,
 		RmiName_NotifyServerMessage, Common.NotifyServerMessage);
 }
+public bool NotifyPlayerJobs(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int job)
+{
+	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
+		__msg.SimplePacketMode = core.IsSimplePacketMode();
+		Nettention.Proud.RmiID __msgid= Common.NotifyPlayerJobs;
+		__msg.Write(__msgid);
+		MyMarshaler.Write(__msg, job);
+		
+	Nettention.Proud.HostID[] __list = new Nettention.Proud.HostID[1];
+	__list[0] = remote;
+		
+	return RmiSend(__list,rmiContext,__msg,
+		RmiName_NotifyPlayerJobs, Common.NotifyPlayerJobs);
+}
+
+public bool NotifyPlayerJobs(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext, int job)
+{
+	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
+__msg.SimplePacketMode = core.IsSimplePacketMode();
+Nettention.Proud.RmiID __msgid= Common.NotifyPlayerJobs;
+__msg.Write(__msgid);
+MyMarshaler.Write(__msg, job);
+		
+	return RmiSend(remotes,rmiContext,__msg,
+		RmiName_NotifyPlayerJobs, Common.NotifyPlayerJobs);
+}
 public bool NotifyItemCreate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int id, int itemIndex, UnityEngine.Vector3 createdPosition)
 {
 	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
@@ -211,7 +237,7 @@ MyMarshaler.Write(__msg, createdPosition);
 	return RmiSend(remotes,rmiContext,__msg,
 		RmiName_NotifyPlayerCreate, Common.NotifyPlayerCreate);
 }
-public bool NotifyNPCList(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.NEntityList npcList)
+public bool NotifyNPCList(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.NNPCEntityList npcList)
 {
 	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
 		__msg.SimplePacketMode = core.IsSimplePacketMode();
@@ -226,7 +252,7 @@ public bool NotifyNPCList(Nettention.Proud.HostID remote,Nettention.Proud.RmiCon
 		RmiName_NotifyNPCList, Common.NotifyNPCList);
 }
 
-public bool NotifyNPCList(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.NEntityList npcList)
+public bool NotifyNPCList(Nettention.Proud.HostID[] remotes,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.NNPCEntityList npcList)
 {
 	Nettention.Proud.Message __msg=new Nettention.Proud.Message();
 __msg.SimplePacketMode = core.IsSimplePacketMode();
@@ -404,6 +430,7 @@ public const string RmiName_SendTest="SendTest";
 public const string RmiName_NotifyJoinPlayer="NotifyJoinPlayer";
 public const string RmiName_NotifyLeavePlayeR="NotifyLeavePlayeR";
 public const string RmiName_NotifyServerMessage="NotifyServerMessage";
+public const string RmiName_NotifyPlayerJobs="NotifyPlayerJobs";
 public const string RmiName_NotifyItemCreate="NotifyItemCreate";
 public const string RmiName_NotifyEntityMove="NotifyEntityMove";
 public const string RmiName_NotifyPlayerCreate="NotifyPlayerCreate";
@@ -423,6 +450,7 @@ public const string RmiName_SendTest="";
 public const string RmiName_NotifyJoinPlayer="";
 public const string RmiName_NotifyLeavePlayeR="";
 public const string RmiName_NotifyServerMessage="";
+public const string RmiName_NotifyPlayerJobs="";
 public const string RmiName_NotifyItemCreate="";
 public const string RmiName_NotifyEntityMove="";
 public const string RmiName_NotifyPlayerCreate="";

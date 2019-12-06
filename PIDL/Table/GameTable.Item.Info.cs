@@ -22,6 +22,9 @@ static bool isLoaded = false;
 	public string SpritePath;
 	public bool IsKillerItem;
 	public EItemTargetType ItemTargetType;
+	public EJob Job;
+	public List<int> UsedPlayerGivenBuff;
+	public List<int> FilterBuff;
  
 
 #if !SERVER

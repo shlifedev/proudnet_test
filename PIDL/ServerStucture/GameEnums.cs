@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-
-
+using System.Threading.Tasks; 
 public enum Status
 {
     None = 0,
@@ -12,17 +10,13 @@ public enum Status
     Playing,
     End,
 }
-
 public enum GameStatus
 {
     None = 0,
     Normal = 1,
     Kill = 2,
     End
-
-}
-
-
+} 
 public enum EItemTargetType
 {
     None,
@@ -32,9 +26,7 @@ public enum EItemTargetType
     HumanTarget,
     CorpseTarget,
     InteriorTarget,
-
-}
-
+} 
 public enum EItemType
 {
     None,
@@ -71,6 +63,22 @@ public enum EItemType
     Kill,
     Max
 }
+public enum EJob : int
+{
+    None = 0,
+    Detective,
+    Hacker,
+    Doctor,
+    Butler,
+    Lawyer,
+    Police,
+    Army,
+    HotelStaff,
+    Unused1,
+    Unused2
+}
+
+
 public enum EBuffType
 {
     Blooding,

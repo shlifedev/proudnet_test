@@ -28,13 +28,13 @@ namespace GameServer
             itemExecuteManager = new ItemExecuteDispatcher.ItemExecuteManager(this);
             itemExecuteManager.InitializeExecuteList();
             srv.c2sStub.ReqUseItem += itemExecuteManager.Execute;
-            players = new Players(); 
-            players.room = this; 
+            players = new Players();
+            players.room = this;
             entityManager = new NEntityManager(this);
             //임시로 스텁처리
-            srv.c2sStub.ReqMove += OnReqEnityMove; 
+            srv.c2sStub.ReqMove += OnReqEnityMove;
             srv.StartServer();
-            gameManager = new GameManager(this); 
+            gameManager = new GameManager(this);
             Logger.Log(this, "GameRoom Setting Succesfully");
             this.CreateNPCEntity(new Vector2(-3, 0));
         }
@@ -60,14 +60,14 @@ namespace GameServer
             return hids;
         }
         public bool OnReqEnityMove(HID requester, RMI rmi, int entityId, UnityEngine.Vector3 pos, Vector3 vel)
-        { 
+        {
             var entity = entityManager.entityMap[entityId];
 
             if (entity != null)
             {
-                entity.position = pos; 
+                entity.position = pos;
                 foreach (var data in GetOthers(requester))
-                { 
+                {
                     srv.s2cProxy.NotifyEntityMove(data, RMI.ReliableSend, entityId, pos, vel);
                 }
             }
@@ -82,18 +82,18 @@ namespace GameServer
 
             connectedHosts.Add(hostID);
             var playerEntity = CreatePlayerEntity(new Vector2(0, 1), hostID);
-            players.AddPlayer(playerEntity, hostID,  this);
+            players.AddPlayer(playerEntity, hostID, this);
             foreach (var hid in connectedHosts)
-            { 
+            {
                 srv.s2cProxy.NotifyServerMessage(hid, RMI.ReliableSend, $"Player {hostID} Connected.");
                 srv.s2cProxy.NotifyPlayerCreate(hid, RMI.ReliableSend, playerEntity.ownerHostID, playerEntity.entityIndex, playerEntity.position);
-              
+
             }
-            srv.s2cProxy.NotifyNPCList(hostID, RMI.ReliableSend, new NEntityList()
+            srv.s2cProxy.NotifyNPCList(hostID, RMI.ReliableSend, new NNPCEntityList()
             {
                 count = entityManager.npcList.Count,
                 list = entityManager.npcList
-            }); 
+            });
             srv.s2cProxy.NotifyJoinPlayer(hostID, RMI.ReliableSend, new NEntityList
             {
                 list = entityManager.playerList,
@@ -101,13 +101,13 @@ namespace GameServer
             });
         }
         public void LeaveClient(HID hostID)
-        { 
+        {
             connectedHosts.Remove(hostID);
-            var player = players.GetPlayerByEntityId((int)hostID); 
+            var player = players.GetPlayerByEntityId((int)hostID);
             players.RemovePlayer(hostID);
             var entity = entityManager.entitiList.Find(x => x.ownerHostID == (int)hostID);
             if (entity != null)
-            { 
+            {
                 entityManager.RemoveEntity(entity.entityIndex);
             }
             foreach (var hid in connectedHosts)
@@ -132,20 +132,23 @@ namespace GameServer
         }
 
         public void StartGame()
-        { 
-            
+        {
+
             //플레이어 아이템설정
+            gameManager.SetRandomJob();
             gameManager.SettingPlayerStartItems();
             //플레이어 랜덤킬러 설정
             gameManager.SetRandomKiller();
+
+            this.srv.srv.TickHandler += UpdateBuffTick;
         }
         public void EndGame()
         {
 
         }
-        public NEntity CreatePlayerEntity(Vector2 position, HID ownerID)
+        public NHumanEntity CreatePlayerEntity(Vector2 position, HID ownerID)
         {
-            NEntity playerEntity = entityManager.CreatePlayerEntity(position, ownerID);
+            NHumanEntity playerEntity = entityManager.CreatePlayerEntity(position, ownerID);
             for (int i = 0; i < connectedHosts.Count; i++)
             {
                 srv.s2cProxy.NotifyServerMessage(connectedHosts[i], RMI.ReliableSend, $"[Log]Player {ownerID} Created!");
@@ -160,7 +163,7 @@ namespace GameServer
                 srv.s2cProxy.NotifyServerMessage(connectedHosts[i], RMI.ReliableSend, $"[Log]NPC ? Created! (pos:{position})");
             }
             return playerEntity;
-        } 
+        }
         public NItemEntity CreateItemEntity(int itemIndex, Vector2 position)
         {
             NItemEntity createEntity = entityManager.CreateItemEntity(itemIndex, position);
@@ -171,5 +174,58 @@ namespace GameServer
             }
             return createEntity;
         }
+
+        #region test_impl
+        /// <summary>
+        /// 플레이어의 버프를 업데이트합니다.
+        /// </summary>
+        /// <param name="e"></param>
+        public void UpdateBuffTick(object e)
+        {
+
+            for (int i = 0; i < entityManager.npcList.Count; i++)
+            {
+                var npc =entityManager.npcList[i];
+                if (npc != null)
+                {
+                    npc.buffManager.RemainTimeManagerBuffs.ForEach(x =>
+                    {
+                        x.remainTime -= 0.1f;
+                        Console.WriteLine(x.remainTime);
+                        if (x.remainTime <= 0) //0이하로 떨어진경우
+                        {
+                            if (x.info.Removeable) //삭제할수 있으면 삭제
+                            {
+                                npc.buffManager.RemoveNBuff(x); //삭제가능한경우, 버프지우기
+                            }
+                            else
+                            {
+                                npc.buffManager.RemoveRemainTimeNBuff(x); //삭제되지 않는 버프의경우(독이라던지..), 남겨놓고 틱리스트에서만 제거.
+                            }
+                            OnBuffNextBuff(npc, x);
+                        }
+                    });
+                }
+            }
+        }
+
+        public void OnBuffNextBuff(NNPCEntity npc, GameServer.Struct.NBuff buff)
+        {
+            Console.WriteLine(buff.info.Index +"," + buff.info.EndNextBuff.Count);
+            if (buff.info.EndNextBuff.Count != 0)
+            {
+                this.players.playerList.ForEach(x => {
+                    foreach (var data in buff.info.EndNextBuff)
+                    {
+                        Console.WriteLine($"create buff and send {x.hostID} {npc.entityIndex} {buff}"); 
+                        var createbuff = NBuffManager.CreateBuff(data, 0);
+                        npc.buffManager.AddNBuff(createbuff);
+                        this.srv.s2cProxy.NotifyEntityBuffAdd(x.hostID, RMI.ReliableSend, npc.entityIndex, createbuff);
+                    }
+                });
+         
+            }
+        }
+        #endregion
     }
 }

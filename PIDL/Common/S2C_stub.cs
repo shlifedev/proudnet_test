@@ -40,6 +40,11 @@ public BeforeRmiInvocationDelegate BeforeRmiInvocation = delegate(Nettention.Pro
 		{ 
 			return false;
 		};
+		public delegate bool NotifyPlayerJobsDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int job);  
+		public NotifyPlayerJobsDelegate NotifyPlayerJobs = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int job)
+		{ 
+			return false;
+		};
 		public delegate bool NotifyItemCreateDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int id, int itemIndex, UnityEngine.Vector3 createdPosition);  
 		public NotifyItemCreateDelegate NotifyItemCreate = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, int id, int itemIndex, UnityEngine.Vector3 createdPosition)
 		{ 
@@ -55,8 +60,8 @@ public BeforeRmiInvocationDelegate BeforeRmiInvocation = delegate(Nettention.Pro
 		{ 
 			return false;
 		};
-		public delegate bool NotifyNPCListDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.NEntityList npcList);  
-		public NotifyNPCListDelegate NotifyNPCList = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.NEntityList npcList)
+		public delegate bool NotifyNPCListDelegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.NNPCEntityList npcList);  
+		public NotifyNPCListDelegate NotifyNPCList = delegate(Nettention.Proud.HostID remote,Nettention.Proud.RmiContext rmiContext, GameServer.Struct.NNPCEntityList npcList)
 		{ 
 			return false;
 		};
@@ -117,6 +122,9 @@ public BeforeRmiInvocationDelegate BeforeRmiInvocation = delegate(Nettention.Pro
             break;
         case Common.NotifyServerMessage:
             ProcessReceivedMessage_NotifyServerMessage(__msg, pa, hostTag, remote);
+            break;
+        case Common.NotifyPlayerJobs:
+            ProcessReceivedMessage_NotifyPlayerJobs(__msg, pa, hostTag, remote);
             break;
         case Common.NotifyItemCreate:
             ProcessReceivedMessage_NotifyItemCreate(__msg, pa, hostTag, remote);
@@ -358,6 +366,56 @@ core.PostCheckReadMessage(__msg, RmiName_NotifyServerMessage);
         AfterRmiInvocation(summary);
         }
     }
+    void ProcessReceivedMessage_NotifyPlayerJobs(Nettention.Proud.Message __msg, Nettention.Proud.ReceivedMessage pa, Object hostTag, Nettention.Proud.HostID remote)
+    {
+        Nettention.Proud.RmiContext ctx = new Nettention.Proud.RmiContext();
+        ctx.sentFrom=pa.RemoteHostID;
+        ctx.relayed=pa.IsRelayed;
+        ctx.hostTag=hostTag;
+        ctx.encryptMode = pa.EncryptMode;
+        ctx.compressMode = pa.CompressMode;
+
+        int job; MyMarshaler.Read(__msg,out job);	
+core.PostCheckReadMessage(__msg, RmiName_NotifyPlayerJobs);
+        if(enableNotifyCallFromStub==true)
+        {
+        string parameterString = "";
+        parameterString+=job.ToString()+",";
+        NotifyCallFromStub(Common.NotifyPlayerJobs, RmiName_NotifyPlayerJobs,parameterString);
+        }
+
+        if(enableStubProfiling)
+        {
+        Nettention.Proud.BeforeRmiSummary summary = new Nettention.Proud.BeforeRmiSummary();
+        summary.rmiID = Common.NotifyPlayerJobs;
+        summary.rmiName = RmiName_NotifyPlayerJobs;
+        summary.hostID = remote;
+        summary.hostTag = hostTag;
+        BeforeRmiInvocation(summary);
+        }
+
+        long t0 = Nettention.Proud.PreciseCurrentTime.GetTimeMs();
+
+        // Call this method.
+        bool __ret =NotifyPlayerJobs (remote,ctx , job );
+
+        if(__ret==false)
+        {
+        // Error: RMI function that a user did not create has been called. 
+        core.ShowNotImplementedRmiWarning(RmiName_NotifyPlayerJobs);
+        }
+
+        if(enableStubProfiling)
+        {
+        Nettention.Proud.AfterRmiSummary summary = new Nettention.Proud.AfterRmiSummary();
+        summary.rmiID = Common.NotifyPlayerJobs;
+        summary.rmiName = RmiName_NotifyPlayerJobs;
+        summary.hostID = remote;
+        summary.hostTag = hostTag;
+        summary.elapsedTime = Nettention.Proud.PreciseCurrentTime.GetTimeMs()-t0;
+        AfterRmiInvocation(summary);
+        }
+    }
     void ProcessReceivedMessage_NotifyItemCreate(Nettention.Proud.Message __msg, Nettention.Proud.ReceivedMessage pa, Object hostTag, Nettention.Proud.HostID remote)
     {
         Nettention.Proud.RmiContext ctx = new Nettention.Proud.RmiContext();
@@ -529,7 +587,7 @@ parameterString+=createdPosition.ToString()+",";
         ctx.encryptMode = pa.EncryptMode;
         ctx.compressMode = pa.CompressMode;
 
-        GameServer.Struct.NEntityList npcList; MyMarshaler.Read(__msg,out npcList);	
+        GameServer.Struct.NNPCEntityList npcList; MyMarshaler.Read(__msg,out npcList);	
 core.PostCheckReadMessage(__msg, RmiName_NotifyNPCList);
         if(enableNotifyCallFromStub==true)
         {
@@ -881,6 +939,7 @@ public const string RmiName_SendTest="SendTest";
 public const string RmiName_NotifyJoinPlayer="NotifyJoinPlayer";
 public const string RmiName_NotifyLeavePlayeR="NotifyLeavePlayeR";
 public const string RmiName_NotifyServerMessage="NotifyServerMessage";
+public const string RmiName_NotifyPlayerJobs="NotifyPlayerJobs";
 public const string RmiName_NotifyItemCreate="NotifyItemCreate";
 public const string RmiName_NotifyEntityMove="NotifyEntityMove";
 public const string RmiName_NotifyPlayerCreate="NotifyPlayerCreate";
@@ -900,6 +959,7 @@ public const string RmiName_SendTest="";
 public const string RmiName_NotifyJoinPlayer="";
 public const string RmiName_NotifyLeavePlayeR="";
 public const string RmiName_NotifyServerMessage="";
+public const string RmiName_NotifyPlayerJobs="";
 public const string RmiName_NotifyItemCreate="";
 public const string RmiName_NotifyEntityMove="";
 public const string RmiName_NotifyPlayerCreate="";

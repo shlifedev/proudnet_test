@@ -16,8 +16,8 @@ namespace GameServer
             GameRoom room = new GameRoom(new GameRoomServer(), this); 
             while (true)
             {
-                var data = Console.ReadLine();
-                room.srv.ConsoleCommand(data);
+                var data = Console.ReadLine(); 
+                room.srv.ConsoleCommand(data); 
             }
         }
     }

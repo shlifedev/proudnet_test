@@ -13,16 +13,15 @@ global Game.Network.S2C 3000
 	
 	NotifyServerMessage([in] string msg); 
 	
-
-
-	//////////엔티티관련////////////////////////
+	NotifyPlayerJobs([in] int job);
+	 
 	NotifyItemCreate([in] int id, [in] int itemIndex, [in] UnityEngine.Vector3 createdPosition);	
 	NotifyEntityMove([in] int id, [in] UnityEngine.Vector3 position, [in] UnityEngine.Vector3 vel);  
 	/* 플레이어 생성 알림 */
 	NotifyPlayerCreate([in] int ownerHid, [in] int entityId, [in] UnityEngine.Vector3 createdPosition);   
 	
 	/* 서버내에 생성되어있는 엔피시리스트 제공 */
-	NotifyNPCList([in] GameServer.Struct.NEntityList npcList);
+	NotifyNPCList([in] GameServer.Struct.NNPCEntityList npcList);
 
     /* 서버내에 생성되어있는 엔피시리스트 제공 */
 	NotifyNPCCreate([in] GameServer.Struct.NEntity npcData);
@@ -37,8 +36,7 @@ global Game.Network.S2C 3000
 
 	NotifyPlayerItemUse([in] int targetEntityId, [in] int itemEntityId);
 
-	NotifyEntityBuffAdd([in] int entityId, [in] GameServer.Struct.NBuff buffData);
-	//////////////////////////////////////////////////
+	NotifyEntityBuffAdd([in] int entityId, [in] GameServer.Struct.NBuff buffData); 
 }       
  
 	
