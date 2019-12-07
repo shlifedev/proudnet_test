@@ -36,7 +36,9 @@ namespace GameServer
             srv.StartServer();
             gameManager = new GameManager(this);
             Logger.Log(this, "GameRoom Setting Succesfully");
-            this.CreateNPCEntity(new Vector2(-3, 0));
+            this.CreateNPCEntity(new Vector2(-4, 14.0f));
+            this.CreateNPCEntity(new Vector2(6.25f, 12.5f));
+
         }
         public Server gSrv = null;
 
@@ -157,7 +159,7 @@ namespace GameServer
         }
         public NEntity CreateNPCEntity(Vector2 position)
         {
-            NEntity playerEntity = entityManager.CreateNPCEntity(-1, position);
+            NEntity playerEntity = entityManager.CreateNPCEntity(CreateIdentifier(), position);
             for (int i = 0; i < connectedHosts.Count; i++)
             {
                 srv.s2cProxy.NotifyServerMessage(connectedHosts[i], RMI.ReliableSend, $"[Log]NPC ? Created! (pos:{position})");

@@ -21,13 +21,15 @@ namespace GameServer
         public GameRoom room;
 
 
-        
+         
         public void SetRandomKiller()
         {
             System.Random rand = new Random();
             var picked = rand.Next(0, room.players.playerList.Count);
             var player = room.players.playerList[picked];
             player.IsKiller = true;
+
+            room.srv.s2cProxy.NotifyServerMessage(player.hostID, Nettention.Proud.RmiContext.ReliableSend, "<color=red>당신은 살인마입니다. 호텔 안에 존재하는 엔피시를 여섯명 살해하면 승리합니다. </color>");
             Logger.Log(this, $"Player{player.hostID} Is a Killer Now!");
 
         }
