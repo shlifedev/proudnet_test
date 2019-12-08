@@ -92,7 +92,16 @@ public enum EBuffType
     ChinBreak, //턱 부서짐
     FingerBreak, //손가락 부러짐
     ArmBreak, //팔 부러짐
-    RednessOfFaceSkin // 얼굴 붉어짐
+    RednessOfFaceSkin, // 얼굴 붉어짐,
+    RednessOfHandSkin,
+    Formalin,
+    EvidenceModified,
+    String,
+    Cyanide,
+    Gun,
+    Pentobarbital,
+    CutOff
+
 
 
 }

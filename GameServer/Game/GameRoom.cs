@@ -39,14 +39,23 @@ namespace GameServer
             this.CreateNPCEntity(new Vector2(-4, 14.0f));
             this.CreateNPCEntity(new Vector2(6.25f, 12.5f));
 
+            //임시로 처리 
+            this.srv.srv.TickHandler += (object e) =>
+            {
+                if (this.gameRule.currentKillWaitTimer >= 0)
+                {
+                    Console.WriteLine(this.gameRule.currentKillWaitTimer);
+                    this.gameRule.currentKillWaitTimer -= 0.1f;
+                }
+            };
         }
         public Server gSrv = null;
-
         public int identifier = 0;
         public NEntityManager entityManager;
         public List<HID> connectedHosts = new List<HID>();
         public GameRoomServer srv = new GameRoomServer();
         public GameManager gameManager;
+        public GameRule gameRule = new GameRule();
         public HID[] GetOthers(HID ignore)
         {
             int cur = 0;
@@ -141,8 +150,8 @@ namespace GameServer
             gameManager.SettingPlayerStartItems();
             //플레이어 랜덤킬러 설정
             gameManager.SetRandomKiller();
-
             this.srv.srv.TickHandler += UpdateBuffTick;
+
         }
         public void EndGame()
         {
@@ -213,19 +222,25 @@ namespace GameServer
 
         public void OnBuffNextBuff(NNPCEntity npc, GameServer.Struct.NBuff buff)
         {
-            Console.WriteLine(buff.info.Index +"," + buff.info.EndNextBuff.Count);
+            Console.WriteLine(buff.info.Index + "," + buff.info.EndNextBuff.Count);
             if (buff.info.EndNextBuff.Count != 0)
             {
-                this.players.playerList.ForEach(x => {
+                this.players.playerList.ForEach(x =>
+                {
                     foreach (var data in buff.info.EndNextBuff)
                     {
-                        Console.WriteLine($"create buff and send {x.hostID} {npc.entityIndex} {buff}"); 
+                        Console.WriteLine($"create buff and send {x.hostID} {npc.entityIndex} {buff}");
                         var createbuff = NBuffManager.CreateBuff(data, 0);
                         npc.buffManager.AddNBuff(createbuff);
+
+                        if (createbuff.info.BuffType == EBuffType.Die)
+                        {
+                            this.gameRule.currentKillWaitTimer = 120.0f;
+                        }
                         this.srv.s2cProxy.NotifyEntityBuffAdd(x.hostID, RMI.ReliableSend, npc.entityIndex, createbuff);
                     }
                 });
-         
+
             }
         }
         #endregion

@@ -42,6 +42,7 @@ namespace GameServer.ItemExecuteDispatcher
 
             //시체수거
             executeMap.Add(EItemType.CorpseStatus, new ItemCorpseStatus(this));
+            executeMap.Add(EItemType.PoisonCheck, new ItemCorpseStatus(this));
         }
 
         public bool Assert(int playerEID, int targetID, int itemEntityID)

@@ -10,7 +10,8 @@ namespace GameServer
     /// 게임 매니저, 게임의 플로우를 제어하는곳.
     /// </summary>
     public class GameManager
-    {
+    { 
+ 
         private GameInitializer gameInitializer;
         public GameManager(GameRoom room)
         {
@@ -77,9 +78,11 @@ namespace GameServer
                 }
 
                 var dobogi = (citizenItems.Find(x => x.ItemIndex == 130));
-                var porem = (killerItems.Find(x => x.ItemIndex == 118)); 
-                    GiveItem(player, dobogi);
-                    GiveItem(player, porem); 
+                var porem = (killerItems.Find(x => x.ItemIndex == 118));
+                var poisonCheck = (citizenItems.Find(x => x.ItemIndex == 114));
+                GiveItem(player, dobogi);
+                GiveItem(player, porem);
+                GiveItem(player, poisonCheck);
                 Logger.Log(this, $"Give Item Player{player.hostID} => " + pickLog);
             }    
         }

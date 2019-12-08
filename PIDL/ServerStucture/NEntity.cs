@@ -32,8 +32,8 @@ namespace GameServer.Struct
     }
 
     public class NNPCEntity : NHumanEntity
-    {
-
+    { 
+        public bool die = false;
     }
     public class NItemEntity : NEntity
     {

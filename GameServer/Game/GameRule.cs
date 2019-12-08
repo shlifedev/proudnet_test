@@ -9,7 +9,9 @@ namespace GameServer
     public class GameRule
     { 
         public float default_killWaitTimer = 120;
-        public int autoGameStartPlayer = 3;
-        public bool autoGameStart = false; 
+        public float currentKillWaitTimer = 0.0f;
+        public int   autoGameStartPlayer = 3;
+        public bool  autoGameStart = false; 
+        
     }
 }

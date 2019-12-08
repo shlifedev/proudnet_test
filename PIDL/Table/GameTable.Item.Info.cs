@@ -12,7 +12,7 @@ static bool isLoaded = false;
 	public static Dictionary<int, Info> dict       = new Dictionary<int, Info>();
 	public int Index;
 	public string Name;
-	public int MaxCount;
+	public List<int> UseOwnerGivenBuff;
 	public List<int> GivenBuff;
 	public int Range;
 	public int MaxUse;

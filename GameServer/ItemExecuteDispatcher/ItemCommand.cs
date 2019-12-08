@@ -27,16 +27,24 @@ namespace GameServer.ItemExecuteDispatcher
         public abstract bool Executeable(Player usePlayer, NEntity targetEntity, Item useItem);
         public void NotifyPlayersNPCBuffGive(Item useItem, NEntity targetEntity)
         {
+            useItem.info.GivenBuff.ForEach(x => {
+                if (GameTable.Buff.Info.Get(x).BuffType == EBuffType.Die)
+                {
+                    Room.gameRule.currentKillWaitTimer += 120;
+                }
+            });
+
             this.Room.players.playerList.ForEach(x =>
             {
                 foreach (var buff in useItem.info.GivenBuff)
-                {
+                { 
+
                     GameServer.Struct.NBuff nbuff = NBuffManager.CreateBuff(buff, 0);
                     Logger.Log(this, $"NotifyEntityBuffAdd => {x.hostID} (target {targetEntity.entityIndex})");
                     if (targetEntity is NHumanEntity)
                     {
                         var human = targetEntity as NHumanEntity;
-                        human.buffManager.AddNBuff(nbuff);
+                        human.buffManager.AddNBuff(nbuff);  
                     }
                     Room.srv.s2cProxy.NotifyEntityBuffAdd(x.hostID, RMI.ReliableSend, targetEntity.entityIndex, nbuff); 
                 }

@@ -70,12 +70,13 @@
     <Compile Include="Game\GameInitializer.cs" />
     <Compile Include="Game\GameRule.cs" />
     <Compile Include="Game\PlayerInventory.cs" />
-    <Compile Include="GameRoom.cs" />
+    <Compile Include="Game\GameRoom.cs" />
     <Compile Include="GameServer.cs" />
     <Compile Include="Game\Player.cs" />
     <Compile Include="Game\Players.cs" />
     <Compile Include="ItemExecuteDispatcher\IItemCommand.cs" />
     <Compile Include="ItemExecuteDispatcher\ItemCommand.cs" />
+    <Compile Include="ItemExecuteDispatcher\ItemPoisonCheck.cs" />
     <Compile Include="ItemExecuteDispatcher\ItemCorpseStatus.cs" />
     <Compile Include="ItemExecuteDispatcher\ItemExecuteManager.cs" />
     <Compile Include="ItemExecuteDispatcher\ItemNpcKillableType.cs" />
